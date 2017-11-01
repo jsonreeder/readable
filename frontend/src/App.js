@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
+import { getCategories } from './util/api';
 
 class App extends Component {
+  state = {
+    categories: [],
+  };
+
+  componentDidMount() {
+    getCategories().then(categories => this.setState({ categories }));
+  }
+
   render() {
+    const { categories } = this.state;
+    console.log(categories);
     return (
-      <section class="section">
-        <div class="container">
-          <h1 class="title">Hello World</h1>
-          <p class="subtitle">
-            My first website with <strong>Bulma</strong>!
-          </p>
+      <section className="section">
+        <div className="container">
+          <h1 className="title">Categories</h1>
+          <ul>
+            {categories.map(c =>
+              <li key={c.name}>
+                {c.name}
+              </li>,
+            )}
+          </ul>
         </div>
       </section>
     );
