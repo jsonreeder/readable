@@ -28,13 +28,16 @@ class App extends Component {
     const { categories } = this.state;
 
     return (
-      <ul>
-        {categories.map(c =>
-          <li key={c.name}>
-            {c.name}
-          </li>,
-        )}
-      </ul>
+      <section className="box container">
+        <h2 className="title is-2">Categories</h2>
+        <ul>
+          {categories.map(c =>
+            <li key={c.name}>
+              {c.name}
+            </li>,
+          )}
+        </ul>
+      </section>
     );
   }
 
@@ -42,13 +45,20 @@ class App extends Component {
     const { posts } = this.state;
 
     return (
-      <ul>
-        {posts.map(p =>
-          <li key={p.body}>
-            {p.body}
-          </li>,
-        )}
-      </ul>
+      <section className="box container">
+        <h2 className="title is-2">Posts</h2>
+        <ul>
+          {posts.map(p => this.renderPost(p.body, p.author))}
+        </ul>
+      </section>
+    );
+  }
+
+  renderPost(body, author) {
+    return (
+      <li key={body}>
+        <strong>{author}</strong> - {body}
+      </li>
     );
   }
 
@@ -56,7 +66,7 @@ class App extends Component {
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title">Readable</h1>
+          <h1 className="title is-1">Readable</h1>
           {this.renderBreadcrumb()}
           {this.renderCategories()}
           {this.renderPosts()}
