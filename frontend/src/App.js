@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { getCategories } from './util/api';
+import * as api from './util/api';
 
 class App extends Component {
   state = {
     categories: [],
+    posts: [],
   };
 
   componentDidMount() {
-    getCategories().then(categories => this.setState({ categories }));
+    api.getCategories().then(categories => this.setState({ categories }));
+    api.getPosts().then(posts => this.setState({ posts }));
   }
 
   renderBreadcrumb() {
@@ -25,10 +27,28 @@ class App extends Component {
   renderCategories() {
     const { categories } = this.state;
 
-    return categories.map(c =>
-      <li key={c.name}>
-        {c.name}
-      </li>,
+    return (
+      <ul>
+        {categories.map(c =>
+          <li key={c.name}>
+            {c.name}
+          </li>,
+        )}
+      </ul>
+    );
+  }
+
+  renderPosts() {
+    const { posts } = this.state;
+
+    return (
+      <ul>
+        {posts.map(p =>
+          <li key={p.body}>
+            {p.body}
+          </li>,
+        )}
+      </ul>
     );
   }
 
@@ -38,9 +58,8 @@ class App extends Component {
         <div className="container">
           <h1 className="title">Readable</h1>
           {this.renderBreadcrumb()}
-          <ul>
-            {this.renderCategories()}
-          </ul>
+          {this.renderCategories()}
+          {this.renderPosts()}
         </div>
       </section>
     );
