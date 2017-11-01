@@ -10,19 +10,23 @@ class App extends Component {
     getCategories().then(categories => this.setState({ categories }));
   }
 
-  render() {
+  renderCategories() {
     const { categories } = this.state;
-    console.log(categories);
+
+    return categories.map(c =>
+      <li key={c.name}>
+        {c.name}
+      </li>,
+    );
+  }
+
+  render() {
     return (
       <section className="section">
         <div className="container">
           <h1 className="title">Categories</h1>
           <ul>
-            {categories.map(c =>
-              <li key={c.name}>
-                {c.name}
-              </li>,
-            )}
+            {this.renderCategories()}
           </ul>
         </div>
       </section>
