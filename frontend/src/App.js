@@ -10,6 +10,18 @@ class App extends Component {
     getCategories().then(categories => this.setState({ categories }));
   }
 
+  renderBreadcrumb() {
+    return (
+      <nav className="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li className="is-active">
+            <a aria-current="page">Home</a>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
+
   renderCategories() {
     const { categories } = this.state;
 
@@ -24,7 +36,8 @@ class App extends Component {
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title">Categories</h1>
+          <h1 className="title">Readable</h1>
+          {this.renderBreadcrumb()}
           <ul>
             {this.renderCategories()}
           </ul>
