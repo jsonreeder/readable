@@ -6,15 +6,12 @@ import * as fromActions from './actions';
 
 class App extends Component {
   state = {
-    categories: [],
     posts: [],
   };
 
   componentDidMount() {
     const { fetchCategories } = this.props;
     fetchCategories();
-    /* fromActions.fetchCategories();*/
-    api.fetchCategories().then(categories => this.setState({ categories }));
     api.fetchPosts().then(posts => this.setState({ posts }));
   }
 
@@ -31,7 +28,7 @@ class App extends Component {
   }
 
   renderCategories() {
-    const { categories } = this.state;
+    const { categories } = this.props;
 
     return (
       <section className="box container">
