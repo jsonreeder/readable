@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as api from './util/api';
-import { getAllCategories } from './reducers';
+import { getAllCategories, getAllPosts } from './reducers';
 import * as fromActions from './actions';
 
 class App extends Component {
-  state = {
-    posts: [],
-  };
-
   componentDidMount() {
-    const { fetchCategories } = this.props;
+    const { fetchCategories, fetchPosts } = this.props;
     fetchCategories();
-    api.fetchPosts().then(posts => this.setState({ posts }));
+    fetchPosts();
   }
 
   renderBreadcrumb() {
@@ -45,7 +41,7 @@ class App extends Component {
   }
 
   renderPosts() {
-    const { posts } = this.state;
+    const { posts } = this.props;
 
     return (
       <section className="box container">
@@ -82,10 +78,12 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   categories: getAllCategories(state.categories),
+  posts: getAllPosts(state.posts),
 });
 
 const mapDispatchToProps = {
   fetchCategories: fromActions.fetchCategories,
+  fetchPosts: fromActions.fetchPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

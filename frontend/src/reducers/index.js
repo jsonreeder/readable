@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
 import { RECEIVE_CATEGORIES } from '../actions';
+import { RECEIVE_POSTS } from '../actions';
 
 export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
+
+export const getAllPosts = state => state.allIds.map(id => state.byId[id]);
 
 const initialCategories = {
   allIds: [],
@@ -39,6 +42,18 @@ function comments(state = initialComments, action) {
 }
 
 function posts(state = initialPosts, action) {
+  switch (action.type) {
+    case RECEIVE_POSTS:
+      const categoryIds = action.posts.map(c => c.id);
+      const postsById = action.posts.reduce((obj, c) => {
+        obj[c.id] = c;
+        return obj;
+      }, {});
+      return {
+        allIds: categoryIds,
+        byId: postsById,
+      };
+  }
   return state;
 }
 
