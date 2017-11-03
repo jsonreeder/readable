@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
+
 const initialCategories = {
   allIds: [],
   byId: {},

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as api from './util/api';
+import { getAllCategories } from './reducers';
+import * as fromActions from './actions';
 
 class App extends Component {
   state = {
@@ -8,8 +11,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    api.getCategories().then(categories => this.setState({ categories }));
-    api.getPosts().then(posts => this.setState({ posts }));
+    const { fetchCategories } = this.props;
+    fetchCategories();
+    /* fromActions.fetchCategories();*/
+    api.fetchCategories().then(categories => this.setState({ categories }));
+    api.fetchPosts().then(posts => this.setState({ posts }));
   }
 
   renderBreadcrumb() {
@@ -63,6 +69,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <section className="section">
         <div className="container">
@@ -76,4 +83,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  categories: getAllCategories(state.categories),
+});
+
+const mapDispatchToProps = {
+  fetchCategories: fromActions.fetchCategories,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
