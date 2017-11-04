@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as api from './util/api';
 import { getAllCategories, getAllPosts } from './reducers';
 import * as fromActions from './actions';
 
@@ -62,7 +61,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <section className="section">
         <div className="container">
