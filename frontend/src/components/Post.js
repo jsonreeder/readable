@@ -40,7 +40,10 @@ class Post extends Component {
     const { post } = this.props;
     return (
       <div>
-        <Breadcrumb path="post" />
+        <Breadcrumb
+          links={{ home: '/', posts: '/' }}
+          paths={['home', 'posts']}
+        />
         <div className="box container">
           {post && this.renderPost(post.author, post.body)}
           {this.renderComments()}

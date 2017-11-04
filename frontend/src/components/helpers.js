@@ -1,12 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const Breadcrumb = ({ path }) =>
+export const Breadcrumb = ({ links, paths }) =>
   <nav className="breadcrumb" aria-label="breadcrumbs">
     <ul>
-      <li className="is-active">
-        <a aria-current="page">
-          {path}
-        </a>
-      </li>
+      {paths.map((p, i) =>
+        <li>
+          {i === paths.length - 1
+            ? p
+            : <Link to={links[p]}>
+                {p}
+              </Link>}
+        </li>,
+      )}
     </ul>
   </nav>;

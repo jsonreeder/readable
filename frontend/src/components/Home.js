@@ -52,7 +52,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Breadcrumb path="home" />
+        <Breadcrumb links={{ home: '/', posts: '/' }} paths={['home']} />
         {this.renderCategories()}
         {this.renderPosts()}
       </div>
