@@ -28,7 +28,7 @@ class Post extends Component {
     return (
       <ul>
         {comments.map(c =>
-          <li>
+          <li key={c.id}>
             {c.author}: {c.body}
           </li>,
         )}
@@ -38,11 +38,18 @@ class Post extends Component {
 
   render() {
     const { post } = this.props;
+    const thisCategory = post ? post.category : 'thisCategory';
+    const thisPost = post ? post.id : 'thisPost';
     return (
       <div>
         <Breadcrumb
-          links={{ home: '/', thisPost: '/' }}
-          paths={['home', 'thisPost']}
+          links={{
+            home: '/',
+            categories: '/categories',
+            [thisCategory]: `/categories/${thisCategory}`,
+            [thisPost]: '/',
+          }}
+          paths={['home', 'categories', thisCategory, thisPost]}
         />
         <div className="box container">
           {post && this.renderPost(post.author, post.body)}
