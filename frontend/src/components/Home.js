@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Breadcrumb } from './helpers';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Breadcrumb } from './helpers';
 import { getAllCategories, getAllPosts } from '../reducers';
 import * as fromActions from '../actions';
 
@@ -35,16 +36,18 @@ class Home extends Component {
       <section className="box container">
         <h2 className="title is-2">Posts</h2>
         <ul>
-          {posts.map(p => this.renderPost(p.body, p.author))}
+          {posts.map(p => this.renderPost(p.body, p.author, p.id))}
         </ul>
       </section>
     );
   }
 
-  renderPost(body, author) {
+  renderPost(body, author, id) {
     return (
       <li key={body}>
-        <strong>{author}</strong> - {body}
+        <Link to={`posts/${id}`}>
+          <strong>{author}</strong> - {body}
+        </Link>
       </li>
     );
   }
