@@ -21,7 +21,9 @@ class Home extends Component {
         <ul>
           {categories.map(c =>
             <li key={c.name}>
-              {c.name}
+              <Link to={`/categories/${c.name}`}>
+                {c.name}
+              </Link>
             </li>,
           )}
         </ul>
@@ -45,7 +47,7 @@ class Home extends Component {
   renderPost(body, author, id) {
     return (
       <li key={body}>
-        <Link to={`posts/${id}`}>
+        <Link to={`/posts/${id}`}>
           <strong>{author}</strong> - {body}
         </Link>
       </li>

@@ -12,23 +12,6 @@ class Category extends Component {
     fetchPosts();
   }
 
-  renderCategories() {
-    const { categories } = this.props;
-
-    return (
-      <section className="box container">
-        <h2 className="title is-2">Categories</h2>
-        <ul>
-          {categories.map(c =>
-            <li key={c.name}>
-              {c.name}
-            </li>,
-          )}
-        </ul>
-      </section>
-    );
-  }
-
   renderPosts() {
     const { posts } = this.props;
 
@@ -45,7 +28,7 @@ class Category extends Component {
   renderPost(body, author, id) {
     return (
       <li key={body}>
-        <Link to={`posts/${id}`}>
+        <Link to={`/posts/${id}`}>
           <strong>{author}</strong> - {body}
         </Link>
       </li>
@@ -53,13 +36,13 @@ class Category extends Component {
   }
 
   render() {
+    const { match: { params: { categoryId } } } = this.props;
     return (
       <div>
         <Breadcrumb
           links={{ home: '/', categories: '/categories' }}
-          paths={['home', 'categories', 'thisCategory']}
+          paths={['home', 'categories', categoryId]}
         />
-        {this.renderCategories()}
         {this.renderPosts()}
       </div>
     );
