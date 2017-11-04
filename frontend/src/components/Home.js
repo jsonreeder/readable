@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Breadcrumb } from './helpers';
 import { connect } from 'react-redux';
 import { getAllCategories, getAllPosts } from '../reducers';
 import * as fromActions from '../actions';
@@ -8,18 +9,6 @@ class Home extends Component {
     const { fetchCategories, fetchPosts } = this.props;
     fetchCategories();
     fetchPosts();
-  }
-
-  renderBreadcrumb() {
-    return (
-      <nav className="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-          <li className="is-active">
-            <a aria-current="page">Home</a>
-          </li>
-        </ul>
-      </nav>
-    );
   }
 
   renderCategories() {
@@ -62,14 +51,11 @@ class Home extends Component {
 
   render() {
     return (
-      <section className="section">
-        <div className="container">
-          <h1 className="title is-1">Readable</h1>
-          {this.renderBreadcrumb()}
-          {this.renderCategories()}
-          {this.renderPosts()}
-        </div>
-      </section>
+      <div>
+        <Breadcrumb path="home" />
+        {this.renderCategories()}
+        {this.renderPosts()}
+      </div>
     );
   }
 }

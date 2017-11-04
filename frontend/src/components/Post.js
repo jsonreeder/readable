@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Breadcrumb } from './helpers';
 import { connect } from 'react-redux';
 import * as fromActions from '../actions';
 import { getAllComments, getPost } from '../reducers';
@@ -38,9 +39,12 @@ class Post extends Component {
   render() {
     const { post } = this.props;
     return (
-      <div className="box container">
-        {post && this.renderPost(post.author, post.body)}
-        {this.renderComments()}
+      <div>
+        <Breadcrumb path="post" />
+        <div className="box container">
+          {post && this.renderPost(post.author, post.body)}
+          {this.renderComments()}
+        </div>
       </div>
     );
   }
