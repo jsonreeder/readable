@@ -41,8 +41,8 @@ class Post extends Component {
     return (
       <div>
         <Breadcrumb
-          links={{ home: '/', posts: '/' }}
-          paths={['home', 'posts']}
+          links={{ home: '/', thisPost: '/' }}
+          paths={['home', 'thisPost']}
         />
         <div className="box container">
           {post && this.renderPost(post.author, post.body)}

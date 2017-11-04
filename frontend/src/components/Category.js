@@ -55,7 +55,10 @@ class Category extends Component {
   render() {
     return (
       <div>
-        <Breadcrumb links={{ home: '/', posts: '/' }} paths={['home']} />
+        <Breadcrumb
+          links={{ home: '/', categories: '/categories' }}
+          paths={['home', 'categories', 'thisCategory']}
+        />
         {this.renderCategories()}
         {this.renderPosts()}
       </div>
