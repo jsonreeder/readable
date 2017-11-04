@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as fromActions from '../actions';
-import { getAllComments } from '../reducers';
+import { getAllComments, getPost } from '../reducers';
 
 class Post extends Component {
   componentDidMount() {
-    const { fetchComments, match: { params: { postId } } } = this.props;
+    const {
+      fetchComments,
+      fetchPosts,
+      match: { params: { postId } },
+    } = this.props;
+    fetchPosts();
     fetchComments(postId);
+  }
+
+  renderPost(body, author) {
+    return (
+      <p>
+        <strong>{author}</strong> - {body}
+      </p>
+    );
   }
 
   renderComments() {
@@ -23,22 +36,24 @@ class Post extends Component {
   }
 
   render() {
-    const { match: { params: { postId } } } = this.props;
+    const { post } = this.props;
     return (
       <div className="box container">
-        {postId}
+        {post && this.renderPost(post.author, post.body)}
         {this.renderComments()}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   comments: getAllComments(state.comments),
+  post: getPost(state.posts, ownProps.match.params.postId),
 });
 
 const mapDispatchToProps = {
   fetchComments: fromActions.fetchComments,
+  fetchPosts: fromActions.fetchPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);

@@ -6,6 +6,7 @@ import { RECEIVE_POSTS } from '../actions';
 export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
 export const getAllComments = state => state.allIds.map(id => state.byId[id]);
 export const getAllPosts = state => state.allIds.map(id => state.byId[id]);
+export const getPost = (state, postId) => state.byId[postId];
 
 const initialCategories = {
   allIds: [],
