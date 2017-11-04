@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Breadcrumb } from './helpers';
 import { connect } from 'react-redux';
+import { Breadcrumb } from './helpers';
 import * as fromActions from '../actions';
 import { getAllComments, getPost } from '../reducers';
 
