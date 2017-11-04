@@ -5,7 +5,7 @@ export const Breadcrumb = ({ links, paths }) =>
   <nav className="breadcrumb" aria-label="breadcrumbs">
     <ul>
       {paths.map((p, i) =>
-        <li>
+        <li key={i}>
           {i === paths.length - 1
             ? p
             : <Link to={links[p]}>
