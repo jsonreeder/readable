@@ -18,6 +18,17 @@ class Home extends Component {
     return posts.map(p => <Post key={p.id} post={p} />);
   }
 
+  /* renderCategories() {
+   *   const { categories } = this.props;
+   *   return categories.map(c =>
+   *     <div className="box container" key={c.name}>
+   *       <Link to={`/categories/${c.name}`}>
+   *         {c.name}
+   *       </Link>
+   *     </div>,
+   *   );
+   * }*/
+
   renderPost(body, author, id) {
     return (
       <li key={body}>

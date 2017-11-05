@@ -1,22 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const Post = ({ post: { author, body, id } }) =>
-  <div className="card">
-    <div className="card-content">
+const formatDate = timestamp => {
+  const date = new Date(timestamp);
+  return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+};
+
+export const Post = ({
+  post: { author, body, category, commentCount, id, timestamp, voteScore },
+}) =>
+  <article className="media">
+    <figure className="media-left">
+      <p class="image is-64x64">
+        {voteScore}
+      </p>
+    </figure>
+    <div className="media-content">
       <div className="content">
         <Link to={`posts/${id}`}>
-          {body}
+          <p>
+            {body}
+          </p>
         </Link>
-        {author}
+        <p>
+          Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
+          <strong>{author}</strong> to{' '}
+          {
+            <Link to={`/categories/${category}`}>
+              {category}
+            </Link>
+          }
+        </p>
       </div>
     </div>
-    <footer className="card-footer">
-      <a className="card-footer-item">Comment</a>
-      <a className="card-footer-item">Edit</a>
-      <a className="card-footer-item">Delete</a>
-    </footer>
-  </div>;
+  </article>;
 
 export const Tabs = ({ categories, current }) => {
   const categoryNames = categories ? categories.map(c => c.name) : [];
