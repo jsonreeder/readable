@@ -60,7 +60,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchCategories: fromActions.fetchCategories,
-  fetchPostsForCategory: fromActions.fetchPostsForCategory,
+  fetchPostsForCategory: fromActions.fetchPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

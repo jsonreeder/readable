@@ -74,17 +74,12 @@ function posts(state = initialPosts, action) {
       };
     case UPDATE_POST:
       return {
+        ...state,
         byId: { ...state.byId, [post.id]: post },
       };
     default:
       return state;
   }
-}
-
-function insertItem(array, item) {
-  let newArray = array.slice();
-  newArray.splice(0, item);
-  return newArray;
 }
 
 export default combineReducers({
