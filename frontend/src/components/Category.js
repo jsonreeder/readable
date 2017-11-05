@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Breadcrumb } from './helpers';
-import { getAllCategories, getAllPosts } from '../reducers';
+import { getAllCategories, getPostsForCategory } from '../reducers';
 import * as fromActions from '../actions';
 
 class Category extends Component {
@@ -53,14 +53,14 @@ class Category extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   categories: getAllCategories(state.categories),
-  posts: getAllPosts(state.posts),
+  posts: getPostsForCategory(state.posts, ownProps.match.params.categoryId),
 });
 
 const mapDispatchToProps = {
   fetchCategories: fromActions.fetchCategories,
-  fetchPostsForCategory: fromActions.fetchPosts,
+  fetchPostsForCategory: fromActions.fetchPostsForCategory,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

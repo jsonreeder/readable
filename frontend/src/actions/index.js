@@ -47,18 +47,23 @@ export const fetchComments = postId => dispatch => {
 
 export function fetchPosts() {
   return async function(dispatch, getState) {
-    const state = getState();
     const posts = await api.fetchPosts();
-
-    posts.forEach(p => {
-      const existingPost = getPost(state.posts, p.id);
-      const actionCreator = existingPost ? updatePost : receivePost;
-      return dispatch(actionCreator(p));
-    });
+    updateOrReceivePosts(dispatch, getState, posts);
   };
 }
 
-export const fetchPostsForCategory = categoryId => dispatch =>
-  api
-    .fetchPostsForCategory(categoryId)
-    .then(posts => posts.forEach(p => dispatch(receivePost(p))));
+export function fetchPostsForCategory(categoryId) {
+  return async function(dispatch, getState) {
+    const posts = await api.fetchPostsForCategory(categoryId);
+    updateOrReceivePosts(dispatch, getState, posts);
+  };
+}
+
+function updateOrReceivePosts(dispatch, getState, posts) {
+  const state = getState();
+  posts.forEach(p => {
+    const existingPost = getPost(state.posts, p.id);
+    const actionCreator = existingPost ? updatePost : receivePost;
+    return dispatch(actionCreator(p));
+  });
+}
