@@ -1,8 +1,10 @@
 import * as api from '../util/api';
+import { getAllPosts } from '../reducers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
-export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const RECEIVE_POST = 'RECEIVE_POST';
+export const UPDATE_POST = 'UPDATE_POST';
 
 export const receiveCategories = categories => {
   return {
@@ -18,10 +20,17 @@ export const receiveComments = comments => {
   };
 };
 
-export const receivePosts = posts => {
+export const receivePost = post => {
   return {
-    type: RECEIVE_POSTS,
-    posts,
+    type: RECEIVE_POST,
+    post,
+  };
+};
+
+export const updatePost = post => {
+  return {
+    type: UPDATE_POST,
+    post,
   };
 };
 
@@ -36,10 +45,21 @@ export const fetchComments = postId => dispatch => {
     .then(comments => dispatch(receiveComments(comments)));
 };
 
-export const fetchPosts = () => dispatch =>
-  api.fetchPosts().then(posts => dispatch(receivePosts(posts)));
+export const fetchPosts = () => (dispatch, getState) => {
+  const { state: { posts } } = getState();
+  const allPosts = getAllPosts(posts);
+  api.fetchPosts().then(posts =>
+    posts.forEach(p => {
+      const existingPost = posts[p.id];
+      if (existingPost && p === existingPost) {
+        return;
+      }
+      return dispatch(receivePost(p));
+    }),
+  );
+};
 
 export const fetchPostsForCategory = categoryId => dispatch =>
   api
     .fetchPostsForCategory(categoryId)
-    .then(posts => dispatch(receivePosts(posts)));
+    .then(posts => posts.forEach(p => dispatch(receivePost(p))));
