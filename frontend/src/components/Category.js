@@ -7,9 +7,13 @@ import * as fromActions from '../actions';
 
 class Category extends Component {
   componentDidMount() {
-    const { fetchCategories, fetchPosts } = this.props;
+    const {
+      fetchCategories,
+      fetchPostsForCategory,
+      match: { params: { categoryId } },
+    } = this.props;
     fetchCategories();
-    fetchPosts();
+    fetchPostsForCategory(categoryId);
   }
 
   renderPosts() {
@@ -56,7 +60,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchCategories: fromActions.fetchCategories,
-  fetchPosts: fromActions.fetchPosts,
+  fetchPostsForCategory: fromActions.fetchPostsForCategory,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

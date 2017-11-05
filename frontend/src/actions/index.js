@@ -38,3 +38,8 @@ export const fetchComments = postId => dispatch => {
 
 export const fetchPosts = () => dispatch =>
   api.fetchPosts().then(posts => dispatch(receivePosts(posts)));
+
+export const fetchPostsForCategory = categoryId => dispatch =>
+  api
+    .fetchPostsForCategory(categoryId)
+    .then(posts => dispatch(receivePosts(posts)));
