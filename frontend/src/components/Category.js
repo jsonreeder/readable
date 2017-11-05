@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Breadcrumb } from './helpers';
+import { Tabs } from './helpers';
 import { getAllCategories, getPostsForCategory } from '../reducers';
 import * as fromActions from '../actions';
 
@@ -40,13 +40,11 @@ class Category extends Component {
   }
 
   render() {
+    const { categories } = this.props;
     const { match: { params: { categoryId } } } = this.props;
     return (
       <div>
-        <Breadcrumb
-          links={{ home: '/', categories: '/categories' }}
-          paths={['home', 'categories', categoryId]}
-        />
+        <Tabs categories={categories} current={categoryId} />
         {this.renderPosts()}
       </div>
     );

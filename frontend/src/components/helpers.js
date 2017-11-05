@@ -23,7 +23,7 @@ export const Tabs = ({ categories, current }) => {
       <ul>
         {tabs.map(t =>
           <li className={t === current ? 'is-active' : ''} key={t}>
-            <Link to={`/categories/${t}`}>
+            <Link to={t === 'all' ? '/' : `/categories/${t}`}>
               {t}
             </Link>
           </li>,
