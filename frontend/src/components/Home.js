@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Breadcrumb } from './helpers';
+import { Tabs } from './helpers';
 import { getAllCategories, getAllPosts } from '../reducers';
 import * as fromActions from '../actions';
 
@@ -10,25 +10,6 @@ class Home extends Component {
     const { fetchCategories, fetchPosts } = this.props;
     fetchCategories();
     fetchPosts();
-  }
-
-  renderCategories() {
-    const { categories } = this.props;
-
-    return (
-      <section className="box container">
-        <h2 className="title is-2">Categories</h2>
-        <ul>
-          {categories.map(c =>
-            <li key={c.name}>
-              <Link to={`/categories/${c.name}`}>
-                {c.name}
-              </Link>
-            </li>,
-          )}
-        </ul>
-      </section>
-    );
   }
 
   renderPosts() {
@@ -55,10 +36,10 @@ class Home extends Component {
   }
 
   render() {
+    const { categories } = this.props;
     return (
       <div>
-        <Breadcrumb links={{ home: '/', posts: '/' }} paths={['home']} />
-        {this.renderCategories()}
+        <Tabs categories={categories} current="all" />
         {this.renderPosts()}
       </div>
     );

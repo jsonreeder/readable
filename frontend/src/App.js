@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Categories from './components/Categories';
 import Category from './components/Category';
 import Home from './components/Home';
-import Post from './components/Post';
+import PostDetail from './components/PostDetail';
 
 const App = () =>
   <div>
@@ -13,7 +13,7 @@ const App = () =>
         <Route exact path="/" component={Home} />
         <Route exact path="/categories" component={Categories} />
         <Route exact path="/categories/:categoryId" component={Category} />
-        <Route exact path="/posts/:postId" component={Post} />
+        <Route exact path="/posts/:postId" component={PostDetail} />
       </div>
     </section>
   </div>;

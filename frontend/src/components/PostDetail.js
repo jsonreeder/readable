@@ -4,7 +4,7 @@ import { Breadcrumb } from './helpers';
 import * as fromActions from '../actions';
 import { getAllComments, getPost } from '../reducers';
 
-class Post extends Component {
+class PostDetail extends Component {
   componentDidMount() {
     const {
       fetchCommentsForPost,
@@ -70,4 +70,4 @@ const mapDispatchToProps = {
   fetchPosts: fromActions.fetchPosts,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
