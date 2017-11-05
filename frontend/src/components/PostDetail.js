@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb } from './helpers';
+import { Tabs } from './helpers';
 import * as fromActions from '../actions';
-import { getAllComments, getPost } from '../reducers';
+import { getAllCategories, getAllComments, getPost } from '../reducers';
 
 class PostDetail extends Component {
   componentDidMount() {
     const {
+      fetchCategories,
       fetchCommentsForPost,
       fetchPosts,
       match: { params: { postId } },
     } = this.props;
+    fetchCategories();
     fetchPosts();
     fetchCommentsForPost(postId);
   }
@@ -40,17 +42,10 @@ class PostDetail extends Component {
     const { post } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
     const thisPost = post ? post.id : 'thisPost';
+    const { categories } = this.props;
     return (
       <div>
-        <Breadcrumb
-          links={{
-            home: '/',
-            categories: '/categories',
-            [thisCategory]: `/categories/${thisCategory}`,
-            [thisPost]: '/',
-          }}
-          paths={['home', 'categories', thisCategory, thisPost]}
-        />
+        <Tabs categories={categories} current={thisCategory} />
         <div className="box container">
           {post && this.renderPost(post.author, post.body)}
           {this.renderComments()}
@@ -61,11 +56,13 @@ class PostDetail extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  categories: getAllCategories(state.categories),
   comments: getAllComments(state.comments),
   post: getPost(state.posts, ownProps.match.params.postId),
 });
 
 const mapDispatchToProps = {
+  fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
   fetchPosts: fromActions.fetchPosts,
 };
