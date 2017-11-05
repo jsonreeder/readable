@@ -6,15 +6,34 @@ const formatDate = timestamp => {
   return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 };
 
+const VoteScore = ({ score }) =>
+  <figure className="media-left">
+    <ul>
+      <li>
+        <a className="button is-white">
+          <span className="icon is-small">
+            <i className="fa fa-arrow-up" />
+          </span>
+        </a>
+      </li>
+      <li>
+        {score}
+      </li>
+      <li>
+        <a className="button is-white">
+          <span className="icon is-small">
+            <i className="fa fa-arrow-down" />
+          </span>
+        </a>
+      </li>
+    </ul>
+  </figure>;
+
 export const Post = ({
   post: { author, body, category, commentCount, id, timestamp, voteScore },
 }) =>
   <article className="media">
-    <figure className="media-left">
-      <p class="image is-64x64">
-        {voteScore}
-      </p>
-    </figure>
+    <VoteScore score={voteScore} />
     <div className="media-content">
       <div className="content">
         <Link to={`posts/${id}`}>
