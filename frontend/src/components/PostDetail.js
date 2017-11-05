@@ -41,7 +41,6 @@ class PostDetail extends Component {
   render() {
     const { post } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
-    const thisPost = post ? post.id : 'thisPost';
     const { categories } = this.props;
     return (
       <div>
