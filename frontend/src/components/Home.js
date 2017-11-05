@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Tabs } from './helpers';
+import { Post, Tabs } from './helpers';
 import { getAllCategories, getAllPosts } from '../reducers';
 import * as fromActions from '../actions';
 
@@ -15,14 +15,7 @@ class Home extends Component {
   renderPosts() {
     const { posts } = this.props;
 
-    return (
-      <section className="box container">
-        <h2 className="title is-2">Posts</h2>
-        <ul>
-          {posts.map(p => this.renderPost(p.body, p.author, p.id))}
-        </ul>
-      </section>
-    );
+    return posts.map(p => <Post key={p.id} post={p} />);
   }
 
   renderPost(body, author, id) {
