@@ -29,6 +29,13 @@ const VoteScore = ({ score }) =>
     </ul>
   </figure>;
 
+export const PostList = ({ posts }) =>
+  posts.length
+    ? posts.map(p => <Post key={p.id} post={p} />)
+    : <article>
+        <em>There are no posts in this category.</em>
+      </article>;
+
 export const Post = ({
   post: { author, body, category, commentCount, id, timestamp, voteScore },
 }) =>
