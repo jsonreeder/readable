@@ -1,8 +1,9 @@
 import * as api from '../util/api';
-import { getPost } from '../reducers';
+import { getComment, getPost } from '../reducers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 
@@ -13,10 +14,17 @@ export const receiveCategories = categories => {
   };
 };
 
-export const receiveComments = comments => {
+export const receiveComment = comment => {
   return {
-    type: RECEIVE_COMMENTS,
-    comments,
+    type: RECEIVE_COMMENT,
+    comment,
+  };
+};
+
+export const updateComment = comment => {
+  return {
+    type: UPDATE_COMMENT,
+    comment,
   };
 };
 
@@ -39,11 +47,12 @@ export const fetchCategories = () => dispatch =>
     .fetchCategories()
     .then(categories => dispatch(receiveCategories(categories)));
 
-export const fetchComments = postId => dispatch => {
-  return api
-    .fetchComments(postId)
-    .then(comments => dispatch(receiveComments(comments)));
-};
+export function fetchCommentsForPost(postId) {
+  return async function(dispatch, getState) {
+    const comments = await api.fetchComments(postId);
+    updateOrReceiveComments(dispatch, getState, comments);
+  };
+}
 
 export function fetchPosts() {
   return async function(dispatch, getState) {
@@ -57,6 +66,15 @@ export function fetchPostsForCategory(categoryId) {
     const posts = await api.fetchPostsForCategory(categoryId);
     updateOrReceivePosts(dispatch, getState, posts);
   };
+}
+
+function updateOrReceiveComments(dispatch, getState, comments) {
+  const state = getState();
+  comments.forEach(c => {
+    const existingComment = getComment(state.comments, c.id);
+    const actionCreator = existingComment ? updateComment : receiveComment;
+    return dispatch(actionCreator(c));
+  });
 }
 
 function updateOrReceivePosts(dispatch, getState, posts) {

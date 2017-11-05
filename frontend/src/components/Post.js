@@ -7,12 +7,12 @@ import { getAllComments, getPost } from '../reducers';
 class Post extends Component {
   componentDidMount() {
     const {
-      fetchComments,
+      fetchCommentsForPost,
       fetchPosts,
       match: { params: { postId } },
     } = this.props;
     fetchPosts();
-    fetchComments(postId);
+    fetchCommentsForPost(postId);
   }
 
   renderPost(body, author) {
@@ -66,7 +66,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  fetchComments: fromActions.fetchComments,
+  fetchCommentsForPost: fromActions.fetchCommentsForPost,
   fetchPosts: fromActions.fetchPosts,
 };
 

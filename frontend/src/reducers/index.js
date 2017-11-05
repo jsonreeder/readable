@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import {
   RECEIVE_CATEGORIES,
-  RECEIVE_COMMENTS,
+  RECEIVE_COMMENT,
+  UPDATE_COMMENT,
   RECEIVE_POST,
   UPDATE_POST,
 } from '../actions';
@@ -14,6 +15,7 @@ export const getPostsForCategory = (state, categoryId) => {
   const allPosts = getAllPosts(state);
   return allPosts.filter(p => p.category === categoryId);
 };
+export const getComment = (state, commentId) => state.byId[commentId];
 
 const initialCategories = {
   allIds: [],
@@ -48,16 +50,17 @@ function categories(state = initialCategories, action) {
 }
 
 function comments(state = initialComments, action) {
+  const { comment } = action;
   switch (action.type) {
-    case RECEIVE_COMMENTS:
-      const categoryIds = action.comments.map(c => c.id);
-      const commentsById = action.comments.reduce((obj, c) => {
-        obj[c.id] = c;
-        return obj;
-      }, {});
+    case RECEIVE_COMMENT:
       return {
-        allIds: categoryIds,
-        byId: commentsById,
+        allIds: [...state.allIds, comment.id],
+        byId: { ...state.byId, [comment.id]: comment },
+      };
+    case UPDATE_COMMENT:
+      return {
+        ...state,
+        byId: { ...state.byId, [comment.id]: comment },
       };
     default:
       return state;
