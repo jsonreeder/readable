@@ -6,13 +6,15 @@ import * as fromActions from '../actions';
 
 class Category extends Component {
   componentDidMount() {
-    const {
-      fetchCategories,
-      fetchPostsForCategory,
-      match: { params: { categoryId } },
-    } = this.props;
+    const { fetchCategories } = this.props;
     fetchCategories();
-    fetchPostsForCategory(categoryId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { fetchPostsForCategory } = this.props;
+    const oldId = this.props.match.params.categoryId;
+    const newId = nextProps.match.params.categoryId;
+    oldId === newId && fetchPostsForCategory(newId);
   }
 
   render() {
