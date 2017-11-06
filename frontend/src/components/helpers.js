@@ -6,41 +6,46 @@ const formatDate = timestamp => {
   return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 };
 
-const VoteScore = ({ score }) =>
-  <figure className="media-left">
-    <ul>
-      <li>
-        <a className="button is-white">
-          <span className="icon is-small">
-            <i className="fa fa-arrow-up" />
-          </span>
-        </a>
-      </li>
-      <li>
-        {score}
-      </li>
-      <li>
-        <a className="button is-white">
-          <span className="icon is-small">
-            <i className="fa fa-arrow-down" />
-          </span>
-        </a>
-      </li>
-    </ul>
-  </figure>;
+const VoteScore = ({ postId, score, upVotePost }) => {
+  return (
+    <figure className="media-left">
+      <ul>
+        <li>
+          <a className="button is-white" onClick={() => upVotePost(postId)}>
+            <span className="icon is-small">
+              <i className="fa fa-arrow-up" />
+            </span>
+          </a>
+        </li>
+        <li>
+          {score}
+        </li>
+        <li>
+          <a className="button is-white">
+            <span className="icon is-small">
+              <i className="fa fa-arrow-down" />
+            </span>
+          </a>
+        </li>
+      </ul>
+    </figure>
+  );
+};
 
-export const PostList = ({ posts }) =>
-  posts.length
-    ? posts.map(p => <Post key={p.id} post={p} />)
+export const PostList = ({ posts, upVotePost }) => {
+  return posts.length
+    ? posts.map(p => <Post key={p.id} post={p} upVotePost={upVotePost} />)
     : <article>
         <em>There are no posts in this category.</em>
       </article>;
+};
 
 export const Post = ({
   post: { author, body, category, commentCount, id, timestamp, voteScore },
+  upVotePost,
 }) =>
   <article className="media">
-    <VoteScore score={voteScore} />
+    <VoteScore postId={id} score={voteScore} upVotePost={upVotePost} />
     <div className="media-content">
       <div className="content">
         <Link to={`posts/${id}`}>

@@ -50,6 +50,13 @@ export const updatePost = post => {
   };
 };
 
+export function upVotePost(postId) {
+  return async function(dispatch) {
+    const post = await api.upVotePost(postId);
+    return dispatch(updatePost(post));
+  };
+}
+
 export function fetchCategories(postId) {
   return async function(dispatch, getState) {
     const categories = await api.fetchCategories();
