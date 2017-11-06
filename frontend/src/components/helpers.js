@@ -6,7 +6,7 @@ const formatDate = timestamp => {
   return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 };
 
-const VoteScore = ({ postId, score, upVotePost, downVotePost }) => {
+const VoteScore = ({ postId, score, upVotePost, downVotePost, isComment }) => {
   return (
     <figure className="media-left">
       <ul>
@@ -17,9 +17,10 @@ const VoteScore = ({ postId, score, upVotePost, downVotePost }) => {
             </span>
           </a>
         </li>
-        <li className="level-item">
-          {score}
-        </li>
+        {!isComment &&
+          <li className="level-item">
+            {score}
+          </li>}
         <li>
           <a className="button is-white" onClick={() => downVotePost(postId)}>
             <span className="icon is-small">
@@ -99,19 +100,20 @@ export const Comment = ({
       score={voteScore}
       upVotePost={upVotePost}
       downVotePost={downVotePost}
+      isComment
     />
     <div className="media-content">
       <div className="content">
         <div className="media-content">
           <div className="content">
-            <Link to={`posts/${id}`}>
-              <p className="is-size-4">
-                {body}
-              </p>
-            </Link>
             <p>
-              Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
-              <strong>{author}</strong> to{' '}
+              <strong>{author} </strong>
+              {voteScore} points {formatDate(timestamp)}
+            </p>
+            <p>
+              {body}
+            </p>
+            <p>
               {
                 <Link to={`/categories/${category}`}>
                   {category}
