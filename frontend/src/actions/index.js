@@ -57,6 +57,13 @@ export function upVotePost(postId) {
   };
 }
 
+export function downVotePost(postId) {
+  return async function(dispatch) {
+    const post = await api.downVotePost(postId);
+    return dispatch(updatePost(post));
+  };
+}
+
 export function fetchCategories(postId) {
   return async function(dispatch, getState) {
     const categories = await api.fetchCategories();

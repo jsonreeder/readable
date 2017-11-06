@@ -12,11 +12,15 @@ class Home extends Component {
   }
 
   render() {
-    const { categories, posts, upVotePost } = this.props;
+    const { categories, posts, upVotePost, downVotePost } = this.props;
     return (
       <div>
         <Tabs categories={categories} current="all" />
-        <PostList posts={posts} upVotePost={upVotePost} />
+        <PostList
+          posts={posts}
+          upVotePost={upVotePost}
+          downVotePost={downVotePost}
+        />
       </div>
     );
   }
@@ -31,6 +35,7 @@ const mapDispatchToProps = {
   fetchCategories: fromActions.fetchCategories,
   fetchPosts: fromActions.fetchPosts,
   upVotePost: fromActions.upVotePost,
+  downVotePost: fromActions.downVotePost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -18,9 +18,12 @@ export const fetchPosts = () =>
 export const fetchPostsForCategory = categoryId =>
   fetch(`${api}/${categoryId}/posts`, { headers }).then(res => res.json());
 
-export const upVotePost = postId =>
+export const upVotePost = postId => voteOnPost(postId, 'upVote');
+export const downVotePost = postId => voteOnPost(postId, 'downVote');
+
+export const voteOnPost = (postId, option) =>
   fetch(`${api}/posts/${postId}`, {
     headers,
     method: 'POST',
-    body: JSON.stringify({ option: 'upVote' }),
+    body: JSON.stringify({ option }),
   }).then(res => res.json());

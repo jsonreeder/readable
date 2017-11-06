@@ -6,7 +6,7 @@ const formatDate = timestamp => {
   return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 };
 
-const VoteScore = ({ postId, score, upVotePost }) => {
+const VoteScore = ({ postId, score, upVotePost, downVotePost }) => {
   return (
     <figure className="media-left">
       <ul>
@@ -21,7 +21,7 @@ const VoteScore = ({ postId, score, upVotePost }) => {
           {score}
         </li>
         <li>
-          <a className="button is-white">
+          <a className="button is-white" onClick={() => downVotePost(postId)}>
             <span className="icon is-small">
               <i className="fa fa-arrow-down" />
             </span>
@@ -32,9 +32,16 @@ const VoteScore = ({ postId, score, upVotePost }) => {
   );
 };
 
-export const PostList = ({ posts, upVotePost }) => {
+export const PostList = ({ posts, upVotePost, downVotePost }) => {
   return posts.length
-    ? posts.map(p => <Post key={p.id} post={p} upVotePost={upVotePost} />)
+    ? posts.map(p =>
+        <Post
+          key={p.id}
+          post={p}
+          upVotePost={upVotePost}
+          downVotePost={downVotePost}
+        />,
+      )
     : <article>
         <em>There are no posts in this category.</em>
       </article>;
@@ -43,9 +50,15 @@ export const PostList = ({ posts, upVotePost }) => {
 export const Post = ({
   post: { author, body, category, commentCount, id, timestamp, voteScore },
   upVotePost,
+  downVotePost,
 }) =>
   <article className="media">
-    <VoteScore postId={id} score={voteScore} upVotePost={upVotePost} />
+    <VoteScore
+      postId={id}
+      score={voteScore}
+      upVotePost={upVotePost}
+      downVotePost={downVotePost}
+    />
     <div className="media-content">
       <div className="content">
         <Link to={`posts/${id}`}>
