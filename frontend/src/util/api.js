@@ -1,6 +1,7 @@
 const api = 'http://localhost:3001';
 const headers = {
   Authorization: 'quagmire',
+  'Content-Type': 'application/json',
 };
 
 export const fetchCategories = () =>
@@ -19,10 +20,7 @@ export const fetchPostsForCategory = categoryId =>
 
 export const upVotePost = postId =>
   fetch(`${api}/posts/${postId}`, {
-    headers: {
-      Authorization: 'quagmire',
-      'Content-Type': 'application/json',
-    },
+    headers,
     method: 'POST',
     body: JSON.stringify({ option: 'upVote' }),
   }).then(res => res.json());
