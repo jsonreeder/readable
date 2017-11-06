@@ -20,10 +20,12 @@ class Category extends Component {
   render() {
     const { categories, posts } = this.props;
     const { match: { params: { categoryId } } } = this.props;
+    const sortedPosts = posts.sort((p1, p2) => p2.voteScore - p1.voteScore);
+
     return (
       <div>
         <Tabs categories={categories} current={categoryId} />
-        <PostList posts={posts} />
+        <PostList posts={sortedPosts} />
       </div>
     );
   }

@@ -13,11 +13,13 @@ class Home extends Component {
 
   render() {
     const { categories, posts, upVotePost, downVotePost } = this.props;
+    const sortedPosts = posts.sort((p1, p2) => p2.voteScore - p1.voteScore);
+
     return (
       <div>
         <Tabs categories={categories} current="all" />
         <PostList
-          posts={posts}
+          posts={sortedPosts}
           upVotePost={upVotePost}
           downVotePost={downVotePost}
         />

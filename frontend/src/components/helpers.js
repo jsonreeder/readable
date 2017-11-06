@@ -33,18 +33,25 @@ const VoteScore = ({ postId, score, upVotePost, downVotePost }) => {
 };
 
 export const PostList = ({ posts, upVotePost, downVotePost }) => {
-  return posts.length
-    ? posts.map(p =>
-        <Post
-          key={p.id}
-          post={p}
-          upVotePost={upVotePost}
-          downVotePost={downVotePost}
-        />,
-      )
-    : <article>
-        <em>There are no posts in this category.</em>
-      </article>;
+  const noPosts = (
+    <article>
+      <em>There are no posts in this category.</em>
+    </article>
+  );
+  if (!posts.length) {
+    return noPosts;
+  }
+
+  const postComponents = posts.map(p =>
+    <Post
+      key={p.id}
+      post={p}
+      upVotePost={upVotePost}
+      downVotePost={downVotePost}
+    />,
+  );
+
+  return postComponents;
 };
 
 export const Post = ({
