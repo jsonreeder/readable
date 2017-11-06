@@ -70,7 +70,7 @@ export const Post = ({
     />
     <div className="media-content">
       <div className="content">
-        <Link to={`posts/${id}`}>
+        <Link to={`/posts/${id}`}>
           <p className="is-size-4">
             {body}
           </p>
