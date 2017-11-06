@@ -17,7 +17,7 @@ const VoteScore = ({ postId, score, upVotePost, downVotePost }) => {
             </span>
           </a>
         </li>
-        <li>
+        <li className="level-item">
           {score}
         </li>
         <li>
