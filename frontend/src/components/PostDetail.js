@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Tabs } from './helpers';
+import { Comment, Post, Tabs } from './helpers';
 import * as fromActions from '../actions';
 import { getAllCategories, getAllComments, getPost } from '../reducers';
 
@@ -17,38 +17,17 @@ class PostDetail extends Component {
     fetchCommentsForPost(postId);
   }
 
-  renderPost(body, author) {
-    return (
-      <p>
-        <strong>{author}</strong> - {body}
-      </p>
-    );
-  }
-
-  renderComments() {
-    const { comments } = this.props;
-    return (
-      <ul>
-        {comments.map(c =>
-          <li key={c.id}>
-            {c.author}: {c.body}
-          </li>,
-        )}
-      </ul>
-    );
-  }
-
   render() {
-    const { post } = this.props;
+    const { comments, post } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
     const { categories } = this.props;
     return (
       <div>
         <Tabs categories={categories} current={thisCategory} />
-        <div className="box container">
-          {post && this.renderPost(post.author, post.body)}
-          {this.renderComments()}
-        </div>
+        {post &&
+          <Post post={post}>
+            {comments.map(c => <Comment comment={c} />)}
+          </Post>}
       </div>
     );
   }

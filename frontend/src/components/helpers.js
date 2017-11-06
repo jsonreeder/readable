@@ -55,6 +55,7 @@ export const PostList = ({ posts, upVotePost, downVotePost }) => {
 };
 
 export const Post = ({
+  children,
   post: { author, body, category, commentCount, id, timestamp, voteScore },
   upVotePost,
   downVotePost,
@@ -82,6 +83,43 @@ export const Post = ({
             </Link>
           }
         </p>
+      </div>
+      {children}
+    </div>
+  </article>;
+
+export const Comment = ({
+  comment: { author, body, category, commentCount, id, timestamp, voteScore },
+  upVotePost,
+  downVotePost,
+}) =>
+  <article className="media">
+    <VoteScore
+      postId={id}
+      score={voteScore}
+      upVotePost={upVotePost}
+      downVotePost={downVotePost}
+    />
+    <div className="media-content">
+      <div className="content">
+        <div className="media-content">
+          <div className="content">
+            <Link to={`posts/${id}`}>
+              <p className="is-size-4">
+                {body}
+              </p>
+            </Link>
+            <p>
+              Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
+              <strong>{author}</strong> to{' '}
+              {
+                <Link to={`/categories/${category}`}>
+                  {category}
+                </Link>
+              }
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </article>;
