@@ -11,13 +11,12 @@ class NewPost extends Component {
   };
 
   handleChange({ placeholder, value }) {
-    this.setState({ [placeholder]: value });
+    this.setState({ [placeholder || 'category']: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { closeModal, createPost } = this.props;
-    console.log(this.state);
     createPost(this.state);
     this.setState({
       body: '',
@@ -93,7 +92,6 @@ class NewPost extends Component {
                 <div className="select">
                   <select
                     value={category}
-                    placehlder="category"
                     onChange={e => this.handleChange(e.target)}
                   >
                     {categories.map(c =>
