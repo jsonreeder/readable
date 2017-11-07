@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as fromActions from '../actions';
 
 const Navbar = ({ openModal }) =>
-  <nav className="navbar" role="navigation" aria-label="main navigation">
+  <nav className="navbar" aria-label="main navigation">
     <div className="navbar-brand">
       <div className="navbar-item">
         <h2 className="title is-2">
