@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid';
 import * as api from '../util/api';
 import { getCategory, getComment, getPost } from '../reducers';
 
@@ -100,7 +101,7 @@ export function fetchPostsForCategory(categoryId) {
 }
 
 export function createPost(body) {
-  body.id = 'quamire';
+  body.id = uuidv4();
   body.timestamp = Date.now();
   return async function(dispatch, getState) {
     const post = await api.createPost(body);

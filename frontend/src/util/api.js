@@ -37,5 +37,5 @@ export async function createPost(body) {
     method: 'POST',
     body: JSON.stringify(body),
   });
-  return post;
+  return post.json();
 }
