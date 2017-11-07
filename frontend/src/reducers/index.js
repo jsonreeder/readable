@@ -40,7 +40,7 @@ const initialPosts = {
 };
 
 const initialModal = {
-  isActive: true,
+  isActive: false,
 };
 
 function categories(state = initialCategories, action) {

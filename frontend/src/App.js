@@ -7,9 +7,28 @@ import NewPost from './components/NewPost';
 
 const App = () =>
   <div>
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
+        <div className="navbar-item">
+          <h2 className="title is-2">
+            <i className="fa fa-book" /> readable
+          </h2>
+        </div>
+      </div>
+      <div className="navbar-menu is-active">
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <button className="button is-info">
+              <p>
+                <i className="fa fa-pencil" /> New Post
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
     <section className="section">
       <div className="container">
-        <h1 className="title is-1">Readable</h1>
         <NewPost />
         <Route exact path="/" component={Home} />
         <Route exact path="/categories/:categoryId" component={Category} />
