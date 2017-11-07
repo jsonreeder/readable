@@ -16,6 +16,10 @@ export const getPostsForCategory = (state, categoryId) => {
   const allPosts = getAllPosts(state);
   return allPosts.filter(p => p.category === categoryId);
 };
+export const getCommentsForPost = (state, postId) => {
+  const allComments = getAllComments(state);
+  return allComments.filter(c => c.parentId === postId);
+};
 export const getCategory = (state, categoryId) => state.byId[categoryId];
 export const getComment = (state, commentId) => state.byId[commentId];
 

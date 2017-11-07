@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Comment, Post, Tabs } from './helpers';
 import * as fromActions from '../actions';
-import { getAllCategories, getAllComments, getPost } from '../reducers';
+import { getAllCategories, getCommentsForPost, getPost } from '../reducers';
 
 class PostDetail extends Component {
   componentDidMount() {
@@ -26,7 +26,7 @@ class PostDetail extends Component {
         <Tabs categories={categories} current={thisCategory} />
         {post &&
           <Post post={post}>
-            {comments.map(c => <Comment comment={c} />)}
+            {comments.map(c => <Comment comment={c} key={c.id} />)}
           </Post>}
       </div>
     );
@@ -35,7 +35,7 @@ class PostDetail extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   categories: getAllCategories(state.categories),
-  comments: getAllComments(state.comments),
+  comments: getCommentsForPost(state.comments, ownProps.match.params.postId),
   post: getPost(state.posts, ownProps.match.params.postId),
 });
 
