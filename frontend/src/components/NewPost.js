@@ -17,6 +17,11 @@ class NewPost extends Component {
     console.log(this.state);
   }
 
+  isInvalid() {
+    const { username, title, body, category } = this.state;
+    return !username || !title || !body || !category;
+  }
+
   render() {
     const { username, title, body, category } = this.state;
     const categories = ['react', 'redux', 'udacity'];
@@ -88,6 +93,7 @@ class NewPost extends Component {
           <footer className="modal-card-foot">
             <button
               className="button is-success"
+              disabled={this.isInvalid()}
               onClick={e => this.handleSubmit(e)}
             >
               Submit
