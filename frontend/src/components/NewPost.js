@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class NewPost extends Component {
   state = {
     body: '',
-    category: '',
+    category: 'react',
     title: '',
     username: '',
   };
@@ -12,8 +12,14 @@ class NewPost extends Component {
     this.setState({ [placeholder]: value });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state);
+  }
+
   render() {
     const { username, title, body, category } = this.state;
+    const categories = ['react', 'redux', 'udacity'];
 
     return (
       <div className="modal is-active">
@@ -64,16 +70,28 @@ class NewPost extends Component {
               <label className="label">Category</label>
               <div className="control">
                 <div className="select">
-                  <select>
-                    <option>Category</option>
-                    <option>Category</option>
+                  <select
+                    value={category}
+                    placehlder="category"
+                    onChange={e => this.handleChange(e.target)}
+                  >
+                    {categories.map(c =>
+                      <option key={c}>
+                        {c}
+                      </option>,
+                    )}
                   </select>
                 </div>
               </div>
             </div>
           </section>
           <footer className="modal-card-foot">
-            <button className="button is-success">Submit</button>
+            <button
+              className="button is-success"
+              onClick={e => this.handleSubmit(e)}
+            >
+              Submit
+            </button>
             <button className="button">Cancel</button>
           </footer>
         </div>
