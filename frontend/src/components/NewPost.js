@@ -16,9 +16,16 @@ class NewPost extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { createPost } = this.props;
+    const { closeModal, createPost } = this.props;
     console.log(this.state);
     createPost(this.state);
+    this.setState({
+      body: '',
+      category: '',
+      title: '',
+      author: '',
+    });
+    closeModal();
   }
 
   isInvalid() {
