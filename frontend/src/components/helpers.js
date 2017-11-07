@@ -57,7 +57,16 @@ export const PostList = ({ posts, upVotePost, downVotePost }) => {
 
 export const Post = ({
   children,
-  post: { author, body, category, commentCount, id, timestamp, voteScore },
+  post: {
+    author,
+    body,
+    category,
+    commentCount,
+    id,
+    timestamp,
+    title,
+    voteScore,
+  },
   upVotePost,
   downVotePost,
 }) =>
@@ -71,10 +80,13 @@ export const Post = ({
     <div className="media-content">
       <div className="content">
         <Link to={`/posts/${id}`}>
-          <p className="is-size-4">
-            {body}
+          <p className="is-size-5">
+            {title}
           </p>
         </Link>
+        <p>
+          {body}
+        </p>
         <p>
           Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
           <strong>{author}</strong> to{' '}
