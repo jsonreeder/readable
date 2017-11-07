@@ -99,6 +99,15 @@ export function fetchPostsForCategory(categoryId) {
   };
 }
 
+export function createPost(body) {
+  body.id = 'quamire';
+  body.timestamp = Date.now();
+  return async function(dispatch, getState) {
+    const post = await api.createPost(body);
+    updateOrReceivePost(dispatch, getState, post);
+  };
+}
+
 function updateOrReceiveCategories(dispatch, getState, categories) {
   const state = getState();
   categories.forEach(c => {

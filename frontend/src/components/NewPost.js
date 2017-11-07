@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as fromActions from '../actions';
 
 class NewPost extends Component {
   state = {
     body: '',
     category: 'react',
     title: '',
-    username: '',
+    author: '',
   };
 
   handleChange({ placeholder, value }) {
@@ -14,16 +16,18 @@ class NewPost extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { createPost } = this.props;
     console.log(this.state);
+    createPost(this.state);
   }
 
   isInvalid() {
-    const { username, title, body, category } = this.state;
-    return !username || !title || !body || !category;
+    const { author, title, body, category } = this.state;
+    return !author || !title || !body || !category;
   }
 
   render() {
-    const { username, title, body, category } = this.state;
+    const { author, title, body, category } = this.state;
     const categories = ['react', 'redux', 'udacity'];
 
     return (
@@ -36,13 +40,13 @@ class NewPost extends Component {
           </header>
           <section className="modal-card-body">
             <div className="field">
-              <label className="label">Username</label>
+              <label className="label">Author</label>
               <div className="control">
                 <input
                   className="input"
                   type="text"
-                  placeholder="username"
-                  value={username}
+                  placeholder="author"
+                  value={author}
                   onChange={e => this.handleChange(e.target)}
                 />
               </div>
@@ -106,4 +110,8 @@ class NewPost extends Component {
   }
 }
 
-export default NewPost;
+const mapDispatchToProps = {
+  createPost: fromActions.createPost,
+};
+
+export default connect(null, mapDispatchToProps)(NewPost);

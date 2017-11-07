@@ -30,3 +30,12 @@ export const voteOnPost = (postId, option) =>
     method: 'POST',
     body: JSON.stringify({ option }),
   }).then(res => res.json());
+
+export async function createPost(body) {
+  const post = await fetch(`${api}/posts`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  return post;
+}
