@@ -4,29 +4,11 @@ import Category from './components/Category';
 import Home from './components/Home';
 import PostDetail from './components/PostDetail';
 import NewPost from './components/NewPost';
+import Navbar from './components/Navbar';
 
 const App = () =>
   <div>
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div className="navbar-brand">
-        <div className="navbar-item">
-          <h2 className="title is-2">
-            <i className="fa fa-book" /> readable
-          </h2>
-        </div>
-      </div>
-      <div className="navbar-menu is-active">
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <button className="button is-info">
-              <p>
-                <i className="fa fa-pencil" /> New Post
-              </p>
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <Navbar />
     <section className="section">
       <div className="container">
         <NewPost />
