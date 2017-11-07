@@ -9,11 +9,11 @@ class PostDetail extends Component {
     const {
       fetchCategories,
       fetchCommentsForPost,
-      fetchPosts,
+      fetchPost,
       match: { params: { postId } },
     } = this.props;
     fetchCategories();
-    fetchPosts();
+    fetchPost(postId);
     fetchCommentsForPost(postId);
   }
 
@@ -42,7 +42,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
-  fetchPosts: fromActions.fetchPosts,
+  fetchPost: fromActions.fetchPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

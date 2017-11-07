@@ -85,6 +85,13 @@ export function fetchPosts() {
   };
 }
 
+export function fetchPost(postId) {
+  return async function(dispatch, getState) {
+    const post = await api.fetchPost(postId);
+    updateOrReceivePost(dispatch, getState, post);
+  };
+}
+
 export function fetchPostsForCategory(categoryId) {
   return async function(dispatch, getState) {
     const posts = await api.fetchPostsForCategory(categoryId);
@@ -111,10 +118,12 @@ function updateOrReceiveComments(dispatch, getState, comments) {
 }
 
 function updateOrReceivePosts(dispatch, getState, posts) {
+  posts.forEach(p => updateOrReceivePost(dispatch, getState, p));
+}
+
+function updateOrReceivePost(dispatch, getState, post) {
   const state = getState();
-  posts.forEach(p => {
-    const existingPost = getPost(state.posts, p.id);
-    const actionCreator = existingPost ? updatePost : receivePost;
-    return dispatch(actionCreator(p));
-  });
+  const existingPost = getPost(state.posts, post.id);
+  const actionCreator = existingPost ? updatePost : receivePost;
+  return dispatch(actionCreator(post));
 }
