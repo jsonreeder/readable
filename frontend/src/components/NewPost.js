@@ -33,14 +33,14 @@ class NewPost extends Component {
 
     return (
       <div className={`modal ${isActive ? 'is-active' : ''}`}>
-        <div className="modal-background"> </div>
+        <div className="modal-background" onClick={closeModal} />
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">New post</p>
             <button
               className="delete"
               aria-label="close"
-              onClick={() => closeModal()}
+              onClick={closeModal}
             />
           </header>
           <section className="modal-card-body">
@@ -107,7 +107,9 @@ class NewPost extends Component {
             >
               Submit
             </button>
-            <button className="button">Cancel</button>
+            <button className="button" onClick={closeModal}>
+              Cancel
+            </button>
           </footer>
         </div>
       </div>
