@@ -28,15 +28,20 @@ class NewPost extends Component {
 
   render() {
     const { author, title, body, category } = this.state;
+    const { closeModal, isActive } = this.props;
     const categories = ['react', 'redux', 'udacity'];
 
     return (
-      <div className="modal is-active">
+      <div className={`modal ${isActive ? 'is-active' : ''}`}>
         <div className="modal-background"> </div>
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">New post</p>
-            <button className="delete" aria-label="close" />
+            <button
+              className="delete"
+              aria-label="close"
+              onClick={() => closeModal()}
+            />
           </header>
           <section className="modal-card-body">
             <div className="field">
@@ -110,8 +115,13 @@ class NewPost extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isActive: state.modal.isActive,
+});
+
 const mapDispatchToProps = {
   createPost: fromActions.createPost,
+  closeModal: fromActions.toggleModal,
 };
 
-export default connect(null, mapDispatchToProps)(NewPost);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

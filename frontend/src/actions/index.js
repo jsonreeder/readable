@@ -8,6 +8,7 @@ export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 
 export const receiveCategory = category => {
   return {
@@ -48,6 +49,12 @@ export const updatePost = post => {
   return {
     type: UPDATE_POST,
     post,
+  };
+};
+
+export const toggleModal = () => {
+  return {
+    type: TOGGLE_MODAL,
   };
 };
 

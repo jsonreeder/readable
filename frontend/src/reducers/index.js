@@ -6,6 +6,7 @@ import {
   UPDATE_COMMENT,
   RECEIVE_POST,
   UPDATE_POST,
+  TOGGLE_MODAL,
 } from '../actions';
 
 export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
@@ -36,6 +37,10 @@ const initialComments = {
 const initialPosts = {
   allIds: [],
   byId: {},
+};
+
+const initialModal = {
+  isActive: true,
 };
 
 function categories(state = initialCategories, action) {
@@ -92,8 +97,18 @@ function posts(state = initialPosts, action) {
   }
 }
 
+function modal(state = initialModal, action) {
+  switch (action.type) {
+    case TOGGLE_MODAL:
+      return { isActive: !state.isActive };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   categories,
   comments,
   posts,
+  modal,
 });
