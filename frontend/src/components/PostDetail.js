@@ -29,12 +29,16 @@ class PostDetail extends Component {
     } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
     const { categories } = this.props;
+    const sortedComments = comments.sort(
+      (c1, c2) => c2.voteScore - c1.voteScore,
+    );
+
     return (
       <div>
         <Tabs categories={categories} current={thisCategory} />
         {post &&
           <Post post={post} upVotePost={upVotePost} downVotePost={downVotePost}>
-            {comments.map(c =>
+            {sortedComments.map(c =>
               <Comment
                 comment={c}
                 downVoteComment={downVoteComment}
