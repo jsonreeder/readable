@@ -28,7 +28,7 @@ class PostDetail extends Component {
         {post &&
           <Post post={post}>
             {comments.map(c => <Comment comment={c} key={c.id} />)}
-            <CommentForm />
+            <CommentForm parentId={post.id} />
           </Post>}
       </div>
     );

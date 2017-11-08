@@ -39,3 +39,12 @@ export async function createPost(body) {
   });
   return post.json();
 }
+
+export async function createComment(body) {
+  const comment = await fetch(`${api}/comments`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  return comment.json();
+}

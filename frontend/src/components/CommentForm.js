@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as fromActions from '../actions';
 
 class CommentForm extends Component {
   state = {
@@ -19,13 +21,8 @@ class CommentForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    /* const { createPost } = this.props;*/
-    /* createPost(this.state);*/
-    this.setState({
-      body: '',
-      category: '',
-      author: '',
-    });
+    const { createComment, parentId } = this.props;
+    createComment({ ...this.state, parentId });
     this.clearForm();
   }
 
@@ -35,7 +32,7 @@ class CommentForm extends Component {
   }
 
   render() {
-    const { author, body } = this.state;
+    const { username, comment } = this.state;
 
     return (
       <article className="media">
@@ -47,7 +44,7 @@ class CommentForm extends Component {
                 className="input"
                 type="text"
                 placeholder="username"
-                value={author}
+                value={username}
                 onChange={e => this.handleChange(e.target)}
               />
             </div>
@@ -58,7 +55,7 @@ class CommentForm extends Component {
                 className="input"
                 type="text"
                 placeholder="comment"
-                value={body}
+                value={comment}
                 onChange={e => this.handleChange(e.target)}
               />
             </div>
@@ -80,4 +77,8 @@ class CommentForm extends Component {
   }
 }
 
-export default CommentForm;
+const mapDispatchToProps = {
+  createComment: fromActions.createComment,
+};
+
+export default connect(null, mapDispatchToProps)(CommentForm);

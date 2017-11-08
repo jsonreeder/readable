@@ -116,6 +116,21 @@ export function createPost(body) {
   };
 }
 
+export function createComment({ username, comment, parentId }) {
+  const body = {
+    author: username,
+    body: comment,
+    id: uuidv4(),
+    parentId,
+    timestamp: Date.now(),
+  };
+
+  return async function(dispatch, getState) {
+    const comment = await api.createComment(body);
+    updateOrReceiveComment(dispatch, getState, comment);
+  };
+}
+
 function updateOrReceiveCategories(dispatch, getState, categories) {
   const state = getState();
   categories.forEach(c => {
@@ -126,12 +141,14 @@ function updateOrReceiveCategories(dispatch, getState, categories) {
 }
 
 function updateOrReceiveComments(dispatch, getState, comments) {
+  comments.forEach(c => updateOrReceiveComment(dispatch, getState, c));
+}
+
+function updateOrReceiveComment(dispatch, getState, comment) {
   const state = getState();
-  comments.forEach(c => {
-    const existingComment = getComment(state.comments, c.id);
-    const actionCreator = existingComment ? updateComment : receiveComment;
-    return dispatch(actionCreator(c));
-  });
+  const existingComment = getComment(state.comments, comment.id);
+  const actionCreator = existingComment ? updateComment : receiveComment;
+  return dispatch(actionCreator(comment));
 }
 
 function updateOrReceivePosts(dispatch, getState, posts) {
