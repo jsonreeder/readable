@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as fromActions from '../actions';
 
-class NewPost extends Component {
+class PostForm extends Component {
   state = {
     body: '',
     category: 'react',
@@ -131,4 +131,4 @@ const mapDispatchToProps = {
   closeModal: fromActions.toggleModal,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
