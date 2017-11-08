@@ -36,7 +36,10 @@ class CommentForm extends Component {
 
     return (
       <article className="media">
-        <div className="media-content box">
+        <form
+          className="media-content box"
+          onSubmit={e => this.handleSubmit(e)}
+        >
           <h4 className="title is-4">New comment</h4>
           <div className="field">
             <div className="control">
@@ -64,14 +67,14 @@ class CommentForm extends Component {
                 <button
                   className="button is-primary"
                   disabled={this.isInvalid()}
-                  onClick={e => this.handleSubmit(e)}
+                  type="submit"
                 >
                   Post comment
                 </button>
               </p>
             </div>
           </div>
-        </div>
+        </form>
       </article>
     );
   }
