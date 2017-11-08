@@ -30,8 +30,8 @@ class CommentForm extends Component {
   }
 
   isInvalid() {
-    const { author, body } = this.state;
-    return !author || !body;
+    const { comment, username } = this.state;
+    return !comment || !username;
   }
 
   render() {
@@ -66,6 +66,7 @@ class CommentForm extends Component {
               <p className="control">
                 <button
                   className="button is-primary"
+                  disabled={this.isInvalid()}
                   onClick={e => this.handleSubmit(e)}
                 >
                   Post comment
