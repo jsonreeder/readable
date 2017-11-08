@@ -60,15 +60,29 @@ export const toggleModal = () => {
 
 export function upVotePost(postId) {
   return async function(dispatch) {
-    const post = await api.upVotePost(postId);
+    const post = await api.upVote(postId, 'post');
     return dispatch(updatePost(post));
   };
 }
 
 export function downVotePost(postId) {
   return async function(dispatch) {
-    const post = await api.downVotePost(postId);
+    const post = await api.downVote(postId, 'post');
     return dispatch(updatePost(post));
+  };
+}
+
+export function upVoteComment(commentId) {
+  return async function(dispatch) {
+    const comment = await api.upVote(commentId, 'comment');
+    return dispatch(updateComment(comment));
+  };
+}
+
+export function downVoteComment(commentId) {
+  return async function(dispatch) {
+    const comment = await api.downVote(commentId, 'comment');
+    return dispatch(updateComment(comment));
   };
 }
 

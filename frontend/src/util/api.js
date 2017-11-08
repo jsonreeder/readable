@@ -21,15 +21,17 @@ export const fetchPost = postId =>
 export const fetchPostsForCategory = categoryId =>
   fetch(`${api}/${categoryId}/posts`, { headers }).then(res => res.json());
 
-export const upVotePost = postId => voteOnPost(postId, 'upVote');
-export const downVotePost = postId => voteOnPost(postId, 'downVote');
+export const upVote = (id, type) => vote(id, type, 'upVote');
+export const downVote = (id, type) => vote(id, type, 'downVote');
 
-export const voteOnPost = (postId, option) =>
-  fetch(`${api}/posts/${postId}`, {
+export async function vote(id, type, option) {
+  const res = await fetch(`${api}/${type}s/${id}`, {
     headers,
     method: 'POST',
     body: JSON.stringify({ option }),
-  }).then(res => res.json());
+  });
+  return res.json();
+}
 
 export async function createPost(body) {
   const post = await fetch(`${api}/posts`, {

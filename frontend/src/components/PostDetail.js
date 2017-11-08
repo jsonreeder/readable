@@ -19,15 +19,29 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments, post } = this.props;
+    const {
+      comments,
+      downVoteComment,
+      downVotePost,
+      post,
+      upVoteComment,
+      upVotePost,
+    } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
     const { categories } = this.props;
     return (
       <div>
         <Tabs categories={categories} current={thisCategory} />
         {post &&
-          <Post post={post}>
-            {comments.map(c => <Comment comment={c} key={c.id} />)}
+          <Post post={post} upVotePost={upVotePost} downVotePost={downVotePost}>
+            {comments.map(c =>
+              <Comment
+                comment={c}
+                downVoteComment={downVoteComment}
+                key={c.id}
+                upVoteComment={upVoteComment}
+              />,
+            )}
             <CommentForm parentId={post.id} />
           </Post>}
       </div>
@@ -42,9 +56,13 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
+  downVoteComment: fromActions.downVoteComment,
   fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
   fetchPost: fromActions.fetchPost,
+  upVoteComment: fromActions.upVoteComment,
+  upVotePost: fromActions.upVotePost,
+  downVotePost: fromActions.downVotePost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
