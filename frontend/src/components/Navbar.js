@@ -31,7 +31,7 @@ class Navbar extends Component {
             <div className="navbar-item">
               <button className="button is-info" onClick={openModal}>
                 <p>
-                  <i className="fa fa-pencil" /> New Post
+                  <i className="fa fa-pencil" /> New post
                 </p>
               </button>
             </div>
@@ -44,7 +44,7 @@ class Navbar extends Component {
                     aria-controls="dropdown-menu"
                     onClick={() => this.toggleDropdown()}
                   >
-                    <span>Dropdown button</span>
+                    <span>Sort posts</span>
                     <span className="icon is-small">
                       <i className="fa fa-angle-down" aria-hidden="true" />
                     </span>
@@ -53,18 +53,16 @@ class Navbar extends Component {
                 <div className="dropdown-menu" id="dropdown-menu" role="menu">
                   <div className="dropdown-content">
                     <a href="#" className="dropdown-item">
-                      Dropdown item
+                      votes up
                     </a>
-                    <a className="dropdown-item">Other dropdown item</a>
                     <a href="#" className="dropdown-item is-active">
-                      Active dropdown item
+                      votes down
                     </a>
                     <a href="#" className="dropdown-item">
-                      Other dropdown item
+                      date up
                     </a>
-                    <hr className="dropdown-divider" />
                     <a href="#" className="dropdown-item">
-                      With a divider
+                      date down
                     </a>
                   </div>
                 </div>
