@@ -10,26 +10,32 @@ class CommentForm extends Component {
     this.setState({ [placeholder]: value });
   }
 
+  clearForm() {
+    this.setState({
+      comment: '',
+      username: '',
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    const { closeModal, createPost } = this.props;
-    createPost(this.state);
+    /* const { createPost } = this.props;*/
+    /* createPost(this.state);*/
     this.setState({
       body: '',
       category: '',
       author: '',
     });
-    closeModal();
+    this.clearForm();
   }
 
   isInvalid() {
-    const { author, body, category } = this.state;
+    const { author, body } = this.state;
     return !author || !body;
   }
 
   render() {
     const { author, body } = this.state;
-    const { closeModal, isActive } = this.props;
 
     return (
       <article className="media">
@@ -56,9 +62,14 @@ class CommentForm extends Component {
                 onChange={e => this.handleChange(e.target)}
               />
             </div>
-            <div class="field">
-              <p class="control">
-                <button class="button is-primary">Post comment</button>
+            <div className="field">
+              <p className="control">
+                <button
+                  className="button is-primary"
+                  onClick={e => this.handleSubmit(e)}
+                >
+                  Post comment
+                </button>
               </p>
             </div>
           </div>
