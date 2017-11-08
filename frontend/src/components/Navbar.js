@@ -3,8 +3,20 @@ import { connect } from 'react-redux';
 import * as fromActions from '../actions';
 
 class Navbar extends Component {
+  state = {
+    dropdownActive: false,
+  };
+
+  toggleDropdown() {
+    this.setState({
+      dropdownActive: !this.state.dropdownActive,
+    });
+  }
+
   render() {
     const { openModal, setFilter } = this.props;
+    const { dropdownActive } = this.state;
+
     return (
       <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
@@ -24,12 +36,13 @@ class Navbar extends Component {
               </button>
             </div>
             <div className="navbar-item">
-              <div className="dropdown">
+              <div className={`dropdown ${dropdownActive && 'is-active'}`}>
                 <div className="dropdown-trigger">
                   <button
                     className="button"
                     aria-haspopup="true"
                     aria-controls="dropdown-menu"
+                    onClick={() => this.toggleDropdown()}
                   >
                     <span>Dropdown button</span>
                     <span className="icon is-small">
