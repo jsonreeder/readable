@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Comment, Post, Tabs } from './helpers';
+import CommentForm from './CommentForm';
 import * as fromActions from '../actions';
 import { getAllCategories, getCommentsForPost, getPost } from '../reducers';
 
@@ -27,6 +28,7 @@ class PostDetail extends Component {
         {post &&
           <Post post={post}>
             {comments.map(c => <Comment comment={c} key={c.id} />)}
+            <CommentForm />
           </Post>}
       </div>
     );
