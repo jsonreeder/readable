@@ -17,6 +17,7 @@ class CommentForm extends Component {
       comment: '',
       username: '',
     });
+    this.usernameInput.focus();
   }
 
   handleSubmit(e) {
@@ -48,6 +49,9 @@ class CommentForm extends Component {
                 type="text"
                 placeholder="username"
                 value={username}
+                ref={i => {
+                  this.usernameInput = i;
+                }}
                 onChange={e => this.handleChange(e.target)}
               />
             </div>
