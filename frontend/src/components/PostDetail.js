@@ -26,6 +26,7 @@ class PostDetail extends Component {
       post,
       upVoteComment,
       upVotePost,
+      deleteComment,
     } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
     const { categories } = this.props;
@@ -44,6 +45,7 @@ class PostDetail extends Component {
                 downVoteComment={downVoteComment}
                 key={c.id}
                 upVoteComment={upVoteComment}
+                remove={deleteComment}
               />,
             )}
             <CommentForm parentId={post.id} />
@@ -60,6 +62,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
+  deleteComment: fromActions.deleteComment,
   downVoteComment: fromActions.downVoteComment,
   fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,

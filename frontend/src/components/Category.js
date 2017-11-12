@@ -37,6 +37,7 @@ class Category extends Component {
   render() {
     const {
       categories,
+      deletePost,
       downVotePost,
       match: { params: { categoryId } },
       posts,
@@ -48,9 +49,10 @@ class Category extends Component {
       <div>
         <Tabs categories={categories} current={categoryId} />
         <PostList
+          deletePost={deletePost}
+          downVotePost={downVotePost}
           posts={sortedPosts}
           upVotePost={upVotePost}
-          downVotePost={downVotePost}
         />
       </div>
     );
@@ -64,10 +66,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
+  deletePost: fromActions.deletePost,
+  downVotePost: fromActions.downVotePost,
   fetchCategories: fromActions.fetchCategories,
   fetchPostsForCategory: fromActions.fetchPostsForCategory,
   upVotePost: fromActions.upVotePost,
-  downVotePost: fromActions.downVotePost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

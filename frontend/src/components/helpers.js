@@ -33,7 +33,7 @@ const VoteScore = ({ postId, score, upVote, downVote, isComment }) => {
   );
 };
 
-export const PostList = ({ posts, upVotePost, downVotePost }) => {
+export const PostList = ({ deletePost, downVotePost, posts, upVotePost }) => {
   const noPosts = (
     <article>
       <em>There are no posts in this category.</em>
@@ -49,11 +49,17 @@ export const PostList = ({ posts, upVotePost, downVotePost }) => {
       post={p}
       upVotePost={upVotePost}
       downVotePost={downVotePost}
+      remove={deletePost}
     />,
   );
 
   return postComponents;
 };
+
+const EditDelete = ({ id, remove }) =>
+  <small>
+    <a>edit</a> · <a onClick={() => remove(id)}>delete</a>
+  </small>;
 
 export const Post = ({
   children,
@@ -67,8 +73,9 @@ export const Post = ({
     title,
     voteScore,
   },
-  upVotePost,
   downVotePost,
+  remove,
+  upVotePost,
 }) =>
   <article className="media">
     <VoteScore
@@ -95,6 +102,8 @@ export const Post = ({
               {category}
             </Link>
           }
+          <br />
+          <EditDelete id={id} remove={remove} />
         </p>
       </div>
       {children}
@@ -103,8 +112,9 @@ export const Post = ({
 
 export const Comment = ({
   comment: { author, body, category, commentCount, id, timestamp, voteScore },
-  upVoteComment,
   downVoteComment,
+  remove,
+  upVoteComment,
 }) =>
   <article className="media">
     <VoteScore
@@ -124,13 +134,8 @@ export const Comment = ({
             </p>
             <p>
               {body}
-            </p>
-            <p>
-              {
-                <Link to={`/categories/${category}`}>
-                  {category}
-                </Link>
-              }
+              <br />
+              <EditDelete id={id} remove={remove} />
             </p>
           </div>
         </div>

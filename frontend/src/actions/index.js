@@ -184,3 +184,17 @@ function updateOrReceivePost(dispatch, getState, post) {
   const actionCreator = existingPost ? updatePost : receivePost;
   return dispatch(actionCreator(post));
 }
+
+export function deletePost(id) {
+  return async function(dispatch, getState) {
+    const post = await api.remove(id, 'post');
+    updateOrReceivePost(dispatch, getState, post);
+  };
+}
+
+export function deleteComment(id) {
+  return async function(dispatch, getState) {
+    const comment = await api.remove(id, 'comment');
+    updateOrReceiveComment(dispatch, getState, comment);
+  };
+}

@@ -22,7 +22,7 @@ export const getPostsForCategory = (state, categoryId) => {
 };
 export const getCommentsForPost = (state, postId) => {
   const allComments = getAllComments(state);
-  return allComments.filter(c => c.parentId === postId);
+  return allComments.filter(c => c.parentId === postId && !c.deleted);
 };
 export const getCategory = (state, categoryId) => state.byId[categoryId];
 export const getComment = (state, commentId) => state.byId[commentId];

@@ -24,7 +24,7 @@ export const fetchPostsForCategory = categoryId =>
 export const upVote = (id, type) => vote(id, type, 'upVote');
 export const downVote = (id, type) => vote(id, type, 'downVote');
 
-export async function vote(id, type, option) {
+async function vote(id, type, option) {
   const res = await fetch(`${api}/${type}s/${id}`, {
     headers,
     method: 'POST',
@@ -49,4 +49,12 @@ export async function createComment(body) {
     body: JSON.stringify(body),
   });
   return comment.json();
+}
+
+export async function remove(id, type) {
+  const res = await fetch(`${api}/${type}s/${id}`, {
+    headers,
+    method: 'DELETE',
+  });
+  return res.json();
 }

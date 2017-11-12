@@ -30,7 +30,7 @@ const Navbar = ({ openModal, setFilter, sortFilter }) =>
                 value={sortFilter}
                 onChange={e => setFilter(e.target.value)}
               >
-                <option>Sort posts</option>
+                <option disabled>Sort posts</option>
                 <option value="voteScoreUp">votes up</option>
                 <option value="voteScoreDown">votes down</option>
                 <option value="dateUp">date up</option>
