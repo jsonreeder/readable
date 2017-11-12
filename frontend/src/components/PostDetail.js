@@ -27,6 +27,7 @@ class PostDetail extends Component {
       upVoteComment,
       upVotePost,
       deleteComment,
+      deletePost,
     } = this.props;
     const thisCategory = post ? post.category : 'thisCategory';
     const { categories } = this.props;
@@ -38,7 +39,12 @@ class PostDetail extends Component {
       <div>
         <Tabs categories={categories} current={thisCategory} />
         {post &&
-          <Post post={post} upVotePost={upVotePost} downVotePost={downVotePost}>
+          <Post
+            post={post}
+            upVotePost={upVotePost}
+            downVotePost={downVotePost}
+            remove={deletePost}
+          >
             {sortedComments.map(c =>
               <Comment
                 comment={c}
@@ -63,6 +69,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   deleteComment: fromActions.deleteComment,
+  deletePost: fromActions.deletePost,
   downVoteComment: fromActions.downVoteComment,
   fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
