@@ -124,6 +124,7 @@ export const Comment = ({
   comment: { author, body, category, commentCount, id, timestamp, voteScore },
   downVoteComment,
   remove,
+  startEditingComment,
   upVoteComment,
 }) =>
   <article className="media">
@@ -145,7 +146,7 @@ export const Comment = ({
             <p>
               {body}
               <br />
-              <EditDelete id={id} remove={remove} />
+              <EditDelete edit={startEditingComment} id={id} remove={remove} />
             </p>
           </div>
         </div>

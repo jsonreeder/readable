@@ -22,14 +22,15 @@ class PostDetail extends Component {
   renderPost() {
     const {
       comments,
-      downVoteComment,
-      downVotePost,
-      startEditingPost,
-      post,
-      upVoteComment,
-      upVotePost,
       deleteComment,
       deletePost,
+      downVoteComment,
+      downVotePost,
+      post,
+      startEditingComment,
+      startEditingPost,
+      upVoteComment,
+      upVotePost,
     } = this.props;
 
     const sortedComments = comments.sort(
@@ -52,14 +53,18 @@ class PostDetail extends Component {
         downVotePost={downVotePost}
         remove={deletePost}
       >
-        {sortedComments.map(c =>
-          <Comment
-            comment={c}
-            downVoteComment={downVoteComment}
-            key={c.id}
-            upVoteComment={upVoteComment}
-            remove={deleteComment}
-          />,
+        {sortedComments.map(
+          c =>
+            c.isEditing
+              ? <CommentForm parentId={post.id} />
+              : <Comment
+                  comment={c}
+                  downVoteComment={downVoteComment}
+                  key={c.id}
+                  upVoteComment={upVoteComment}
+                  startEditingComment={startEditingComment}
+                  remove={deleteComment}
+                />,
         )}
         <CommentForm parentId={post.id} />
       </Post>
@@ -93,6 +98,7 @@ const mapDispatchToProps = {
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
   fetchPost: fromActions.fetchPost,
   startEditingPost: fromActions.toggleModalEdit,
+  startEditingComment: fromActions.startEditingComment,
   upVoteComment: fromActions.upVoteComment,
   upVotePost: fromActions.upVotePost,
 };

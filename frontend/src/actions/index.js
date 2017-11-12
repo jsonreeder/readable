@@ -11,6 +11,7 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const TOGGLE_MODAL_NEW = 'TOGGLE_MODAL_NEW';
 export const TOGGLE_MODAL_EDIT = 'TOGGLE_MODAL_EDIT';
 export const SET_FILTER = 'SET_FILTER';
+export const START_EDITING_COMMENT = 'START_EDITING_COMMENT';
 
 export const receiveCategory = category => {
   return {
@@ -73,6 +74,11 @@ export const setFilter = sortFilter => {
     sortFilter,
   };
 };
+
+export const startEditingComment = id => ({
+  type: START_EDITING_COMMENT,
+  id,
+});
 
 export function upVotePost(postId) {
   return async function(dispatch) {

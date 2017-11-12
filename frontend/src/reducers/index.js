@@ -4,6 +4,7 @@ import {
   RECEIVE_COMMENT,
   RECEIVE_POST,
   SET_FILTER,
+  START_EDITING_COMMENT,
   TOGGLE_MODAL_NEW,
   TOGGLE_MODAL_EDIT,
   UPDATE_CATEGORY,
@@ -86,6 +87,14 @@ function comments(state = initialComments, action) {
       return {
         ...state,
         byId: { ...state.byId, [comment.id]: comment },
+      };
+    case START_EDITING_COMMENT:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.id]: { ...state.byId[action.id], isEditing: true },
+        },
       };
     default:
       return state;
