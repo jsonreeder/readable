@@ -147,6 +147,13 @@ export function createPost(body) {
   };
 }
 
+export function editPost(body, id) {
+  return async function(dispatch, getState) {
+    const post = await api.editPost(body, id);
+    updateOrReceivePost(dispatch, getState, post);
+  };
+}
+
 export function createComment({ username, comment, parentId }) {
   const body = {
     author: username,

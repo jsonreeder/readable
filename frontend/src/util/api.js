@@ -42,6 +42,15 @@ export async function createPost(body) {
   return post.json();
 }
 
+export async function editPost(body, id) {
+  const post = await fetch(`${api}/posts/${id}`, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+  return post.json();
+}
+
 export async function createComment(body) {
   const comment = await fetch(`${api}/comments`, {
     headers,

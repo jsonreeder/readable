@@ -76,7 +76,7 @@ export const Post = ({
     voteScore,
   },
   downVotePost,
-  editPost,
+  startEditingPost,
   remove,
   upVotePost,
 }) =>
@@ -106,7 +106,7 @@ export const Post = ({
             </Link>
           }
           <br />
-          <EditDelete edit={editPost} id={id} remove={remove} />
+          <EditDelete edit={startEditingPost} id={id} remove={remove} />
         </p>
       </div>
       {children}

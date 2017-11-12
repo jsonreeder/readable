@@ -14,7 +14,7 @@ class PostForm extends Component {
   componentWillReceiveProps(newProps) {
     const { post: oldPost } = this.props;
     const { post: newPost } = newProps;
-    if (oldPost !== newPost) {
+    if (newPost && oldPost !== newPost) {
       const { author, body, category, title } = newPost;
       this.setState({
         author,
@@ -46,8 +46,9 @@ class PostForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { createPost } = this.props;
-    createPost(this.state);
+    const { createPost, editPost, post } = this.props;
+    const { body, title } = this.state;
+    post ? editPost({ body, title }, post.id) : createPost(this.state);
     this.closeAndClear();
   }
 
@@ -157,6 +158,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   createPost: fromActions.createPost,
   closeModal: fromActions.toggleModalNew,
+  editPost: fromActions.editPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
