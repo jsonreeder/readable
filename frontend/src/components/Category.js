@@ -22,10 +22,27 @@ class Category extends Component {
     oldId !== newId && fetchPostsForCategory(newId);
   }
 
+  sortPosts(posts) {
+    const { sortFilter } = this.props;
+    const sortCBs = {
+      voteScoreUp: (p1, p2) => p2.voteScore - p1.voteScore,
+      voteScoreDown: (p1, p2) => p1.voteScore - p2.voteScore,
+      dateUp: (p1, p2) => p2.timestamp - p1.timestamp,
+      dateDown: (p1, p2) => p1.timestamp - p2.timestamp,
+    };
+
+    return posts.sort(sortCBs[sortFilter]);
+  }
+
   render() {
-    const { categories, posts, upVotePost, downVotePost } = this.props;
-    const { match: { params: { categoryId } } } = this.props;
-    const sortedPosts = posts.sort((p1, p2) => p2.voteScore - p1.voteScore);
+    const {
+      categories,
+      downVotePost,
+      match: { params: { categoryId } },
+      posts,
+      upVotePost,
+    } = this.props;
+    const sortedPosts = this.sortPosts(posts);
 
     return (
       <div>
@@ -42,6 +59,7 @@ class Category extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   categories: getAllCategories(state.categories),
+  sortFilter: state.sort.sortFilter,
   posts: getPostsForCategory(state.posts, ownProps.match.params.categoryId),
 });
 
