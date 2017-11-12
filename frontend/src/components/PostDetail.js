@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Comment, Post, Tabs } from './helpers';
 import CommentForm from './CommentForm';
 import * as fromActions from '../actions';
@@ -18,7 +19,7 @@ class PostDetail extends Component {
     fetchCommentsForPost(postId);
   }
 
-  render() {
+  renderPost() {
     const {
       comments,
       downVoteComment,
@@ -29,33 +30,47 @@ class PostDetail extends Component {
       deleteComment,
       deletePost,
     } = this.props;
-    const thisCategory = post ? post.category : 'thisCategory';
-    const { categories } = this.props;
+
     const sortedComments = comments.sort(
       (c1, c2) => c2.voteScore - c1.voteScore,
     );
 
+    if (post.deleted) {
+      return (
+        <p>
+          This post has been deleted. Go <Link to="/">home</Link>.
+        </p>
+      );
+    }
+
+    return (
+      <Post
+        post={post}
+        upVotePost={upVotePost}
+        downVotePost={downVotePost}
+        remove={deletePost}
+      >
+        {sortedComments.map(c =>
+          <Comment
+            comment={c}
+            downVoteComment={downVoteComment}
+            key={c.id}
+            upVoteComment={upVoteComment}
+            remove={deleteComment}
+          />,
+        )}
+        <CommentForm parentId={post.id} />
+      </Post>
+    );
+  }
+
+  render() {
+    const { categories, post } = this.props;
+    const thisCategory = post ? post.category : 'thisCategory';
     return (
       <div>
         <Tabs categories={categories} current={thisCategory} />
-        {post &&
-          <Post
-            post={post}
-            upVotePost={upVotePost}
-            downVotePost={downVotePost}
-            remove={deletePost}
-          >
-            {sortedComments.map(c =>
-              <Comment
-                comment={c}
-                downVoteComment={downVoteComment}
-                key={c.id}
-                upVoteComment={upVoteComment}
-                remove={deleteComment}
-              />,
-            )}
-            <CommentForm parentId={post.id} />
-          </Post>}
+        {post && this.renderPost()}
       </div>
     );
   }
