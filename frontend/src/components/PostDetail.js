@@ -56,7 +56,7 @@ class PostDetail extends Component {
         {sortedComments.map(
           c =>
             c.isEditing
-              ? <CommentForm parentId={post.id} />
+              ? <CommentForm comment={c} key={c.id} parentId={post.id} />
               : <Comment
                   comment={c}
                   downVoteComment={downVoteComment}

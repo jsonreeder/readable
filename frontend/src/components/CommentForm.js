@@ -8,6 +8,16 @@ class CommentForm extends Component {
     username: '',
   };
 
+  componentDidMount() {
+    const { comment } = this.props;
+    if (comment) {
+      this.setState({
+        comment: comment.body,
+        username: comment.author,
+      });
+    }
+  }
+
   handleChange({ placeholder, value }) {
     this.setState({ [placeholder]: value });
   }
@@ -34,6 +44,7 @@ class CommentForm extends Component {
 
   render() {
     const { username, comment } = this.state;
+    const oldComment = this.props.comment;
 
     return (
       <article className="media">
@@ -41,11 +52,14 @@ class CommentForm extends Component {
           className="media-content box"
           onSubmit={e => this.handleSubmit(e)}
         >
-          <h4 className="title is-4">New comment</h4>
+          <h4 className="title is-4">
+            {oldComment ? 'Edit comment' : 'New comment'}
+          </h4>
           <div className="field">
             <div className="control">
               <input
                 className="input"
+                disabled={!!oldComment}
                 type="text"
                 placeholder="username"
                 value={username}
