@@ -108,7 +108,7 @@ export const Post = ({
           Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
           <strong>{author}</strong> to{' '}
           {
-            <Link to={`/categories/${category}`}>
+            <Link to={`/${category}`}>
               {category}
             </Link>
           }
@@ -164,7 +164,7 @@ export const Tabs = ({ categories, current }) => {
       <ul>
         {tabs.map(t =>
           <li className={t === currentTab ? 'is-active' : ''} key={t}>
-            <Link to={t === 'all' ? '/' : `/categories/${t}`}>
+            <Link to={t === 'all' ? '/' : `/${t}`}>
               {t}
             </Link>
           </li>,

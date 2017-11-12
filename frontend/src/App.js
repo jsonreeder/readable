@@ -12,7 +12,7 @@ const App = () =>
       <div className="container">
         <PostForm />
         <Route exact path="/" component={Category} />
-        <Route exact path="/categories/:categoryId" component={Category} />
+        <Route exact path="/:categoryId" component={Category} />
         <Route exact path="/posts/:postId" component={PostDetail} />
       </div>
     </section>
