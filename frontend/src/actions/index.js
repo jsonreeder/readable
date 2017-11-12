@@ -9,6 +9,7 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+export const SET_FILTER = 'SET_FILTER';
 
 export const receiveCategory = category => {
   return {
@@ -59,9 +60,9 @@ export const toggleModal = () => {
 };
 
 export const setFilter = option => {
-  console.log(option);
   return {
-    type: 'SET_FILTER',
+    type: SET_FILTER,
+    option,
   };
 };
 

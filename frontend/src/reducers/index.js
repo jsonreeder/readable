@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import {
   RECEIVE_CATEGORY,
-  UPDATE_CATEGORY,
   RECEIVE_COMMENT,
-  UPDATE_COMMENT,
   RECEIVE_POST,
-  UPDATE_POST,
+  SET_FILTER,
   TOGGLE_MODAL,
+  UPDATE_CATEGORY,
+  UPDATE_COMMENT,
+  UPDATE_POST,
 } from '../actions';
 
 export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
@@ -41,6 +42,10 @@ const initialPosts = {
 
 const initialModal = {
   isActive: false,
+};
+
+const initialSort = {
+  sort: false,
 };
 
 function categories(state = initialCategories, action) {
@@ -106,9 +111,19 @@ function modal(state = initialModal, action) {
   }
 }
 
+function sort(state = initialSort, action) {
+  switch (action.type) {
+    case SET_FILTER:
+      return { sort: action.option };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   categories,
   comments,
-  posts,
   modal,
+  posts,
+  sort,
 });
