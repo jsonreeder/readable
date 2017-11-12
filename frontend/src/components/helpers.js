@@ -104,7 +104,7 @@ export const Post = ({
         <p>
           {body}
         </p>
-        <p>
+        <small>
           Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
           <strong>{author}</strong> to{' '}
           {
@@ -114,7 +114,7 @@ export const Post = ({
           }
           <br />
           <EditDelete edit={startEditingPost} id={id} remove={remove} />
-        </p>
+        </small>
       </div>
       {children}
     </div>
