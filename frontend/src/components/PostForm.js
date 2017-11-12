@@ -59,12 +59,15 @@ class PostForm extends Component {
 
   render() {
     const { author, title, body, category } = this.state;
-    const { closeModal, isActive, post } = this.props;
+    const { isActive, post } = this.props;
     const categories = ['react', 'redux', 'udacity'];
 
     return (
       <div className={`modal ${isActive ? 'is-active' : ''}`}>
-        <div className="modal-background" onClick={closeModal} />
+        <div
+          className="modal-background"
+          onClick={() => this.closeAndClear()}
+        />
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">
@@ -73,7 +76,7 @@ class PostForm extends Component {
             <button
               className="delete"
               aria-label="close"
-              onClick={closeModal}
+              onClick={() => this.closeAndClear()}
             />
           </header>
           <section className="modal-card-body">
