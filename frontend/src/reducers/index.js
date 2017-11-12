@@ -45,7 +45,7 @@ const initialModal = {
 };
 
 const initialSort = {
-  sort: false,
+  sortFilter: false,
 };
 
 function categories(state = initialCategories, action) {
@@ -114,7 +114,7 @@ function modal(state = initialModal, action) {
 function sort(state = initialSort, action) {
   switch (action.type) {
     case SET_FILTER:
-      return { sort: action.option };
+      return { sortFilter: action.sortFilter };
     default:
       return state;
   }

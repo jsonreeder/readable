@@ -59,10 +59,10 @@ export const toggleModal = () => {
   };
 };
 
-export const setFilter = option => {
+export const setFilter = sortFilter => {
   return {
     type: SET_FILTER,
-    option,
+    sortFilter,
   };
 };
 
