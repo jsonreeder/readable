@@ -32,8 +32,10 @@ class CommentForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { createComment, parentId } = this.props;
-    createComment({ ...this.state, parentId });
+    const { comment, createComment, editComment, parentId } = this.props;
+    comment
+      ? editComment(this.state.comment, comment.id)
+      : createComment({ ...this.state, parentId });
     this.clearForm();
   }
 
@@ -100,6 +102,7 @@ class CommentForm extends Component {
 
 const mapDispatchToProps = {
   createComment: fromActions.createComment,
+  editComment: fromActions.editComment,
 };
 
 export default connect(null, mapDispatchToProps)(CommentForm);

@@ -175,6 +175,17 @@ export function createComment({ username, comment, parentId }) {
   };
 }
 
+export function editComment(commentBody, id) {
+  const body = {
+    body: commentBody,
+  };
+
+  return async function(dispatch, getState) {
+    const comment = await api.editComment(body, id);
+    updateOrReceiveComment(dispatch, getState, comment);
+  };
+}
+
 function updateOrReceiveCategories(dispatch, getState, categories) {
   const state = getState();
   categories.forEach(c => {

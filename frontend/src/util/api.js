@@ -60,6 +60,15 @@ export async function createComment(body) {
   return comment.json();
 }
 
+export async function editComment(body, id) {
+  const post = await fetch(`${api}/comments/${id}`, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+  return post.json();
+}
+
 export async function remove(id, type) {
   const res = await fetch(`${api}/${type}s/${id}`, {
     headers,
