@@ -4,18 +4,16 @@ import * as fromActions from '../actions';
 
 class Navbar extends Component {
   state = {
-    dropdownActive: false,
+    optionSelected: '',
   };
 
-  toggleDropdown() {
-    this.setState({
-      dropdownActive: !this.state.dropdownActive,
-    });
+  selectOption(option) {
+    this.setState({ optionSelected: option });
   }
 
   render() {
     const { openModal, setFilter } = this.props;
-    const { dropdownActive } = this.state;
+    const { optionSelected } = this.state;
 
     return (
       <nav className="navbar" aria-label="main navigation">
@@ -36,35 +34,18 @@ class Navbar extends Component {
               </button>
             </div>
             <div className="navbar-item">
-              <div className={`dropdown ${dropdownActive && 'is-active'}`}>
-                <div className="dropdown-trigger">
-                  <button
-                    className="button"
-                    aria-haspopup="true"
-                    aria-controls="dropdown-menu"
-                    onClick={() => this.toggleDropdown()}
+              <div className="dropdown">
+                <div className="select is-success">
+                  <select
+                    value={optionSelected}
+                    onChange={e => this.selectOption(e.target.value)}
                   >
-                    <span>Sort posts</span>
-                    <span className="icon is-small">
-                      <i className="fa fa-angle-down" aria-hidden="true" />
-                    </span>
-                  </button>
-                </div>
-                <div className="dropdown-menu" id="dropdown-menu" role="menu">
-                  <div className="dropdown-content">
-                    <a href="#" className="dropdown-item">
-                      votes up
-                    </a>
-                    <a href="#" className="dropdown-item is-active">
-                      votes down
-                    </a>
-                    <a href="#" className="dropdown-item">
-                      date up
-                    </a>
-                    <a href="#" className="dropdown-item">
-                      date down
-                    </a>
-                  </div>
+                    <option>Sort posts</option>
+                    <option value="votes up">votes up</option>
+                    <option value="votes down">votes down</option>
+                    <option value="date up">date up</option>
+                    <option value="date down">date down</option>
+                  </select>
                 </div>
               </div>
             </div>
