@@ -45,7 +45,7 @@ const initialModal = {
 };
 
 const initialSort = {
-  sortFilter: false,
+  sortFilter: 'voteScoreUp',
 };
 
 function categories(state = initialCategories, action) {

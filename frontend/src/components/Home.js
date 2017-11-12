@@ -12,8 +12,20 @@ class Home extends Component {
   }
 
   render() {
-    const { categories, posts, upVotePost, downVotePost } = this.props;
-    const sortedPosts = posts.sort((p1, p2) => p2.voteScore - p1.voteScore);
+    const {
+      categories,
+      downVotePost,
+      posts,
+      sortFilter,
+      upVotePost,
+    } = this.props;
+    const sortCBs = {
+      voteScoreUp: (p1, p2) => p2.voteScore - p1.voteScore,
+      voteScoreDown: (p1, p2) => p1.voteScore - p2.voteScore,
+      dateUp: (p1, p2) => p2.timestamp - p1.timestamp,
+      dateDown: (p1, p2) => p1.timestamp - p2.timestamp,
+    };
+    const sortedPosts = posts.sort(sortCBs[sortFilter]);
 
     return (
       <div>
@@ -30,6 +42,7 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   categories: getAllCategories(state.categories),
+  sortFilter: state.sort.sortFilter,
   posts: getAllPosts(state.posts),
 });
 
