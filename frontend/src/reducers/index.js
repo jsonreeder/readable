@@ -15,6 +15,10 @@ export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
 const getAllComments = state => state.allIds.map(id => state.byId[id]);
 const getAllPosts = state => state.allIds.map(id => state.byId[id]);
 export const getPost = (state, postId) => state.byId[postId];
+export const getPostToEdit = state => {
+  const { modal: { postId } } = state;
+  return getPost(state.posts, postId);
+};
 export const getPostsForCategory = (state, categoryId) => {
   const allPosts = getAllPosts(state);
   return categoryId

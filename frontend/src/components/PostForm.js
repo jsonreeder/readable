@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getPostToEdit } from '../reducers';
 import * as fromActions from '../actions';
 
 class PostForm extends Component {
@@ -9,6 +10,20 @@ class PostForm extends Component {
     category: '',
     title: '',
   };
+
+  componentWillReceiveProps(newProps) {
+    const { post: oldPost } = this.props;
+    const { post: newPost } = newProps;
+    if (oldPost !== newPost) {
+      const { author, body, category, title } = newPost;
+      this.setState({
+        author,
+        body,
+        category,
+        title,
+      });
+    }
+  }
 
   handleChange({ placeholder, value }) {
     this.setState({ [placeholder || 'category']: value });
@@ -136,6 +151,7 @@ class PostForm extends Component {
 
 const mapStateToProps = state => ({
   isActive: state.modal.isActive,
+  post: getPostToEdit(state),
 });
 
 const mapDispatchToProps = {
