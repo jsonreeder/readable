@@ -59,7 +59,7 @@ class PostForm extends Component {
 
   render() {
     const { author, title, body, category } = this.state;
-    const { closeModal, isActive } = this.props;
+    const { closeModal, isActive, post } = this.props;
     const categories = ['react', 'redux', 'udacity'];
 
     return (
@@ -67,7 +67,9 @@ class PostForm extends Component {
         <div className="modal-background" onClick={closeModal} />
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">New post</p>
+            <p className="modal-card-title">
+              {post ? 'Edit post' : 'New post'}
+            </p>
             <button
               className="delete"
               aria-label="close"
@@ -79,6 +81,7 @@ class PostForm extends Component {
               <label className="label">Author</label>
               <div className="control">
                 <input
+                  disabled={!!post}
                   className="input"
                   type="text"
                   placeholder="author"
@@ -116,6 +119,7 @@ class PostForm extends Component {
               <div className="control">
                 <div className="select">
                   <select
+                    disabled={!!post}
                     value={category}
                     onChange={e => this.handleChange(e.target)}
                   >
