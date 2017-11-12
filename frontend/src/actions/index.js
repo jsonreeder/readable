@@ -124,7 +124,8 @@ export function fetchPost(postId) {
 
 export function fetchPostsForCategory(categoryId) {
   return async function(dispatch, getState) {
-    const posts = await api.fetchPostsForCategory(categoryId);
+    const cb = categoryId ? api.fetchPostsForCategory : api.fetchPosts;
+    const posts = await cb(categoryId);
     updateOrReceivePosts(dispatch, getState, posts);
   };
 }

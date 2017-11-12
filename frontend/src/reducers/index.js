@@ -16,7 +16,9 @@ export const getAllPosts = state => state.allIds.map(id => state.byId[id]);
 export const getPost = (state, postId) => state.byId[postId];
 export const getPostsForCategory = (state, categoryId) => {
   const allPosts = getAllPosts(state);
-  return allPosts.filter(p => p.category === categoryId);
+  return categoryId
+    ? allPosts.filter(p => p.category === categoryId)
+    : allPosts;
 };
 export const getCommentsForPost = (state, postId) => {
   const allComments = getAllComments(state);
