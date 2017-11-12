@@ -115,14 +115,16 @@ export const Post = ({
         <p>
           {body}
         </p>
-        <small>
-          Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
-          <strong>{author}</strong> to{' '}
-          {
-            <Link to={`/${category}`}>
-              {category}
-            </Link>
-          }
+        <p>
+          <small>
+            Submitted on <strong>{formatDate(timestamp)}</strong> by{' '}
+            <strong>{author}</strong> to{' '}
+            {
+              <Link to={`/${category}`}>
+                {category}
+              </Link>
+            }
+          </small>
           <br />
           <EditDelete
             edit={startEditingPost}
@@ -130,7 +132,7 @@ export const Post = ({
             id={id}
             remove={remove}
           />
-        </small>
+        </p>
       </div>
       {children}
     </div>
@@ -153,19 +155,15 @@ export const Comment = ({
     />
     <div className="media-content">
       <div className="content">
-        <div className="media-content">
-          <div className="content">
-            <p>
-              <strong>{author} </strong>
-              {voteScore} points {formatDate(timestamp)}
-            </p>
-            <p>
-              {body}
-              <br />
-              <EditDelete edit={startEditingComment} id={id} remove={remove} />
-            </p>
-          </div>
-        </div>
+        <p>
+          <strong>{author} </strong>
+          {voteScore} points {formatDate(timestamp)}
+        </p>
+        <p>
+          {body}
+          <br />
+          <EditDelete edit={startEditingComment} id={id} remove={remove} />
+        </p>
       </div>
     </div>
   </article>;
