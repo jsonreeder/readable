@@ -56,9 +56,10 @@ export const PostList = ({ deletePost, downVotePost, posts, upVotePost }) => {
   return postComponents;
 };
 
-const EditDelete = ({ id, remove }) =>
+const EditDelete = ({ id, remove, comment }) =>
   <small>
-    <a>edit</a> · <a onClick={() => remove(id)}>delete</a>
+    <a>edit</a> · <a onClick={() => remove(id)}>delete</a> ·{' '}
+    <Link to={`posts/${id}`}>comment</Link>
   </small>;
 
 export const Post = ({
@@ -103,7 +104,7 @@ export const Post = ({
             </Link>
           }
           <br />
-          <EditDelete id={id} remove={remove} />
+          <EditDelete comment id={id} remove={remove} />
         </p>
       </div>
       {children}
