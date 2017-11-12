@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as fromActions from '../actions';
 
 const Navbar = ({ openModal, setFilter, sortFilter }) =>
   <nav className="navbar" aria-label="main navigation">
     <div className="navbar-brand">
       <div className="navbar-item">
-        <h2 className="title is-2">
-          <i className="fa fa-book" /> readable
-        </h2>
+        <Link to="/">
+          <h2 className="title is-2">
+            <i className="fa fa-book" /> readable
+          </h2>
+        </Link>
       </div>
     </div>
     <div className="navbar-menu is-active">
