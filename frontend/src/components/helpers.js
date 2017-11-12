@@ -33,7 +33,13 @@ const VoteScore = ({ postId, score, upVote, downVote, isComment }) => {
   );
 };
 
-export const PostList = ({ deletePost, downVotePost, posts, upVotePost }) => {
+export const PostList = ({
+  deletePost,
+  downVotePost,
+  posts,
+  startEditingPost,
+  upVotePost,
+}) => {
   const noPosts = (
     <article>
       <em>There are no posts in this category.</em>
@@ -45,11 +51,12 @@ export const PostList = ({ deletePost, downVotePost, posts, upVotePost }) => {
 
   const postComponents = posts.map(p =>
     <Post
+      downVotePost={downVotePost}
       key={p.id}
       post={p}
-      upVotePost={upVotePost}
-      downVotePost={downVotePost}
       remove={deletePost}
+      startEditingPost={startEditingPost}
+      upVotePost={upVotePost}
     />,
   );
 

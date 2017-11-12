@@ -88,13 +88,13 @@ const mapDispatchToProps = {
   deleteComment: fromActions.deleteComment,
   deletePost: fromActions.deletePost,
   downVoteComment: fromActions.downVoteComment,
-  startEditingPost: fromActions.toggleModalEdit,
+  downVotePost: fromActions.downVotePost,
   fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
   fetchPost: fromActions.fetchPost,
+  startEditingPost: fromActions.toggleModalEdit,
   upVoteComment: fromActions.upVoteComment,
   upVotePost: fromActions.upVotePost,
-  downVotePost: fromActions.downVotePost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

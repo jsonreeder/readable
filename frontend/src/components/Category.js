@@ -41,6 +41,7 @@ class Category extends Component {
       downVotePost,
       match: { params: { categoryId } },
       posts,
+      startEditingPost,
       upVotePost,
     } = this.props;
     const sortedPosts = this.sortPosts(posts);
@@ -53,6 +54,7 @@ class Category extends Component {
           downVotePost={downVotePost}
           posts={sortedPosts}
           upVotePost={upVotePost}
+          startEditingPost={startEditingPost}
         />
       </div>
     );
@@ -70,6 +72,7 @@ const mapDispatchToProps = {
   downVotePost: fromActions.downVotePost,
   fetchCategories: fromActions.fetchCategories,
   fetchPostsForCategory: fromActions.fetchPostsForCategory,
+  startEditingPost: fromActions.toggleModalEdit,
   upVotePost: fromActions.upVotePost,
 };
 
