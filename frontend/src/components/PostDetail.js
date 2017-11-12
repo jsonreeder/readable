@@ -24,6 +24,7 @@ class PostDetail extends Component {
       comments,
       downVoteComment,
       downVotePost,
+      editPost,
       post,
       upVoteComment,
       upVotePost,
@@ -45,6 +46,7 @@ class PostDetail extends Component {
 
     return (
       <Post
+        editPost={editPost}
         post={post}
         upVotePost={upVotePost}
         downVotePost={downVotePost}
@@ -86,6 +88,7 @@ const mapDispatchToProps = {
   deleteComment: fromActions.deleteComment,
   deletePost: fromActions.deletePost,
   downVoteComment: fromActions.downVoteComment,
+  editPost: fromActions.toggleModalEdit,
   fetchCategories: fromActions.fetchCategories,
   fetchCommentsForPost: fromActions.fetchCommentsForPost,
   fetchPost: fromActions.fetchPost,

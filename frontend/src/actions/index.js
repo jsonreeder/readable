@@ -8,7 +8,8 @@ export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
-export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+export const TOGGLE_MODAL_NEW = 'TOGGLE_MODAL_NEW';
+export const TOGGLE_MODAL_EDIT = 'TOGGLE_MODAL_EDIT';
 export const SET_FILTER = 'SET_FILTER';
 
 export const receiveCategory = category => {
@@ -53,9 +54,16 @@ export const updatePost = post => {
   };
 };
 
-export const toggleModal = () => {
+export const toggleModalNew = () => {
   return {
-    type: TOGGLE_MODAL,
+    type: TOGGLE_MODAL_NEW,
+  };
+};
+
+export const toggleModalEdit = id => {
+  return {
+    type: TOGGLE_MODAL_EDIT,
+    id,
   };
 };
 

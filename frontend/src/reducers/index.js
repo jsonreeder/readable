@@ -4,7 +4,8 @@ import {
   RECEIVE_COMMENT,
   RECEIVE_POST,
   SET_FILTER,
-  TOGGLE_MODAL,
+  TOGGLE_MODAL_NEW,
+  TOGGLE_MODAL_EDIT,
   UPDATE_CATEGORY,
   UPDATE_COMMENT,
   UPDATE_POST,
@@ -44,6 +45,7 @@ const initialPosts = {
 
 const initialModal = {
   isActive: false,
+  postId: '',
 };
 
 const initialSort = {
@@ -106,8 +108,10 @@ function posts(state = initialPosts, action) {
 
 function modal(state = initialModal, action) {
   switch (action.type) {
-    case TOGGLE_MODAL:
+    case TOGGLE_MODAL_NEW:
       return { isActive: !state.isActive };
+    case TOGGLE_MODAL_EDIT:
+      return { isActive: !state.isActive, postId: action.id };
     default:
       return state;
   }

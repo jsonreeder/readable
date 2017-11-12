@@ -140,7 +140,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   createPost: fromActions.createPost,
-  closeModal: fromActions.toggleModal,
+  closeModal: fromActions.toggleModalNew,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

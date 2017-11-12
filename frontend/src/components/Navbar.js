@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  openModal: fromActions.toggleModal,
+  openModal: fromActions.toggleModalNew,
   setFilter: fromActions.setFilter,
 };
 
