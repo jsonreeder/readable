@@ -63,12 +63,23 @@ export const PostList = ({
   return postComponents;
 };
 
-const EditDelete = ({ id, edit, remove, comment }) =>
-  <small>
-    <a onClick={() => edit(id)}>edit</a> ·{' '}
-    <a onClick={() => remove(id)}>delete</a> ·{' '}
-    <Link to={`posts/${id}`}>comment</Link>
-  </small>;
+const EditDelete = ({ id, category, edit, remove }) => {
+  if (category) {
+    return (
+      <small>
+        <a onClick={() => edit(id)}>edit</a> ·{' '}
+        <a onClick={() => remove(id)}>delete</a> ·{' '}
+        <Link to={`/${category}/${id}`}>comment</Link>
+      </small>
+    );
+  }
+  return (
+    <small>
+      <a onClick={() => edit(id)}>edit</a> ·{' '}
+      <a onClick={() => remove(id)}>delete</a>
+    </small>
+  );
+};
 
 export const Post = ({
   children,
@@ -96,7 +107,7 @@ export const Post = ({
     />
     <div className="media-content">
       <div className="content">
-        <Link to={`/posts/${id}`}>
+        <Link to={`/${category}/${id}`}>
           <p className="is-size-5">
             {title}
           </p>
@@ -113,7 +124,12 @@ export const Post = ({
             </Link>
           }
           <br />
-          <EditDelete edit={startEditingPost} id={id} remove={remove} />
+          <EditDelete
+            edit={startEditingPost}
+            category={category}
+            id={id}
+            remove={remove}
+          />
         </small>
       </div>
       {children}
