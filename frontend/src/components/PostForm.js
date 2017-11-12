@@ -4,27 +4,36 @@ import * as fromActions from '../actions';
 
 class PostForm extends Component {
   state = {
-    body: '',
-    category: 'react',
-    title: '',
     author: '',
+    body: '',
+    category: '',
+    title: '',
   };
 
   handleChange({ placeholder, value }) {
     this.setState({ [placeholder || 'category']: value });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { closeModal, createPost } = this.props;
-    createPost(this.state);
+  closeAndClear() {
+    const { closeModal } = this.props;
+    this.clearForm();
+    closeModal();
+  }
+
+  clearForm() {
     this.setState({
+      author: '',
       body: '',
       category: '',
       title: '',
-      author: '',
     });
-    closeModal();
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { createPost } = this.props;
+    createPost(this.state);
+    this.closeAndClear();
   }
 
   isInvalid() {
@@ -94,6 +103,9 @@ class PostForm extends Component {
                     value={category}
                     onChange={e => this.handleChange(e.target)}
                   >
+                    <option value="" disabled>
+                      Choose one
+                    </option>
                     {categories.map(c =>
                       <option key={c}>
                         {c}
@@ -112,7 +124,7 @@ class PostForm extends Component {
             >
               Submit
             </button>
-            <button className="button" onClick={closeModal}>
+            <button className="button" onClick={() => this.closeAndClear()}>
               Cancel
             </button>
           </footer>
