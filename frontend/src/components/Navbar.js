@@ -8,11 +8,13 @@ class Navbar extends Component {
   };
 
   selectOption(option) {
+    const { setFilter } = this.props;
+    setFilter(option);
     this.setState({ optionSelected: option });
   }
 
   render() {
-    const { openModal, setFilter } = this.props;
+    const { openModal } = this.props;
     const { optionSelected } = this.state;
 
     return (
@@ -58,7 +60,7 @@ class Navbar extends Component {
 
 const mapDispatchToProps = {
   openModal: fromActions.toggleModal,
-  setFilter: input => console.log(input),
+  setFilter: fromActions.setFilter,
 };
 
 export default connect(null, mapDispatchToProps)(Navbar);

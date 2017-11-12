@@ -58,6 +58,13 @@ export const toggleModal = () => {
   };
 };
 
+export const setFilter = option => {
+  console.log(option);
+  return {
+    type: 'SET_FILTER',
+  };
+};
+
 export function upVotePost(postId) {
   return async function(dispatch) {
     const post = await api.upVote(postId, 'post');
