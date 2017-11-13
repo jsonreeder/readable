@@ -19,6 +19,17 @@ class PostDetail extends Component {
     fetchCommentsForPost(postId);
   }
 
+  renderPostNotFound() {
+    return (
+      <div className="section">
+        <p>404: Post not found</p>
+        <p>
+          Go <Link to="/">home</Link>.
+        </p>
+      </div>
+    );
+  }
+
   renderPost() {
     const {
       comments,
@@ -36,14 +47,6 @@ class PostDetail extends Component {
     const sortedComments = comments.sort(
       (c1, c2) => c2.voteScore - c1.voteScore,
     );
-
-    if (post.deleted) {
-      return (
-        <p>
-          This post has been deleted. Go <Link to="/">home</Link>.
-        </p>
-      );
-    }
 
     return (
       <Post
@@ -77,7 +80,7 @@ class PostDetail extends Component {
     return (
       <div>
         <Tabs categories={categories} current={thisCategory} />
-        {post && this.renderPost()}
+        {post && !post.deleted ? this.renderPost() : this.renderPostNotFound()}
       </div>
     );
   }
