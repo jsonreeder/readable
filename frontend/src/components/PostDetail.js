@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Comment, Post, Tabs } from './helpers';
 import CommentForm from './CommentForm';
 import * as fromActions from '../actions';
@@ -17,6 +17,13 @@ class PostDetail extends Component {
     fetchCategories();
     fetchPost(postId);
     fetchCommentsForPost(postId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { post } = nextProps;
+    if (post && post.deleted) {
+      this.props.history.push('/');
+    }
   }
 
   renderPostNotFound() {
@@ -80,7 +87,7 @@ class PostDetail extends Component {
     return (
       <div>
         <Tabs categories={categories} current={thisCategory} />
-        {post && !post.deleted ? this.renderPost() : this.renderPostNotFound()}
+        {post ? this.renderPost() : this.renderPostNotFound()}
       </div>
     );
   }
@@ -106,4 +113,6 @@ const mapDispatchToProps = {
   upVotePost: fromActions.upVotePost,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(PostDetail),
+);
