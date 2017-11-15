@@ -63,13 +63,13 @@ export const PostList = ({
   return postComponents;
 };
 
-const EditDelete = ({ id, category, edit, remove }) => {
+const EditDelete = ({ id, category, commentCount, edit, remove }) => {
   if (category) {
     return (
       <small>
         <a onClick={() => edit(id)}>edit</a> ·{' '}
         <a onClick={() => remove(id)}>delete</a> ·{' '}
-        <Link to={`/${category}/${id}`}>comment</Link>
+        <Link to={`/${category}/${id}`}>{`comments (${commentCount})`}</Link>
       </small>
     );
   }
@@ -129,6 +129,7 @@ export const Post = ({
           <EditDelete
             edit={startEditingPost}
             category={category}
+            commentCount={commentCount}
             id={id}
             remove={remove}
           />
