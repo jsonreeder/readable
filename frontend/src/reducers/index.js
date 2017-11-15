@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import {
+  ADD_COMMENT,
   RECEIVE_CATEGORY,
   RECEIVE_COMMENT,
   RECEIVE_POST,
+  REMOVE_COMMENT,
   SET_FILTER,
   START_EDITING_COMMENT,
   TOGGLE_MODAL_NEW,
@@ -113,6 +115,30 @@ function posts(state = initialPosts, action) {
       return {
         ...state,
         byId: { ...state.byId, [post.id]: post },
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.comment.parentId]: {
+            ...getPost(state, action.comment.parentId),
+            commentCount:
+              getPost(state, action.comment.parentId).commentCount + 1,
+          },
+        },
+      };
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.comment.parentId]: {
+            ...getPost(state, action.comment.parentId),
+            commentCount:
+              getPost(state, action.comment.parentId).commentCount - 1,
+          },
+        },
       };
     default:
       return state;

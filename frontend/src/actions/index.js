@@ -2,16 +2,18 @@ import uuidv4 from 'uuid';
 import * as api from '../util/api';
 import { getCategory, getComment, getPost } from '../reducers';
 
+export const ADD_COMMENT = 'ADD_COMMENT';
 export const RECEIVE_CATEGORY = 'RECEIVE_CATEGORY';
-export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
-export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const RECEIVE_POST = 'RECEIVE_POST';
-export const UPDATE_POST = 'UPDATE_POST';
-export const TOGGLE_MODAL_NEW = 'TOGGLE_MODAL_NEW';
-export const TOGGLE_MODAL_EDIT = 'TOGGLE_MODAL_EDIT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const SET_FILTER = 'SET_FILTER';
 export const START_EDITING_COMMENT = 'START_EDITING_COMMENT';
+export const TOGGLE_MODAL_EDIT = 'TOGGLE_MODAL_EDIT';
+export const TOGGLE_MODAL_NEW = 'TOGGLE_MODAL_NEW';
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const UPDATE_POST = 'UPDATE_POST';
 
 export const receiveCategory = category => {
   return {
@@ -78,6 +80,16 @@ export const setFilter = sortFilter => {
 export const startEditingComment = id => ({
   type: START_EDITING_COMMENT,
   id,
+});
+
+export const addComment = comment => ({
+  type: ADD_COMMENT,
+  comment,
+});
+
+export const removeComment = comment => ({
+  type: REMOVE_COMMENT,
+  comment,
 });
 
 export function upVotePost(postId) {
@@ -171,6 +183,7 @@ export function createComment({ username, comment, parentId }) {
 
   return async function(dispatch, getState) {
     const comment = await api.createComment(body);
+    dispatch(addComment(comment));
     updateOrReceiveComment(dispatch, getState, comment);
   };
 }
@@ -227,6 +240,7 @@ export function deletePost(id) {
 export function deleteComment(id) {
   return async function(dispatch, getState) {
     const comment = await api.remove(id, 'comment');
+    dispatch(removeComment(comment));
     updateOrReceiveComment(dispatch, getState, comment);
   };
 }
